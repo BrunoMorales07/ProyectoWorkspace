@@ -2,8 +2,6 @@ function showAlertError() {
     document.getElementById("alert-danger").classList.add("show");
 }
 
-localStorage.getItem("user") && localStorage.getItem("password")
-
 document.getElementById('boton').addEventListener("click", function () {
     
     let usuario = document.getElementById('user').value.trim();
