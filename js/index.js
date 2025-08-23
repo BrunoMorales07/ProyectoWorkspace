@@ -12,3 +12,9 @@ document.addEventListener("DOMContentLoaded", function(){
         window.location = "products.html"
     });
 });
+
+ const sesion = localStorage.getItem("sesionIniciada");
+
+ if (sesion !== "true") {
+    location.href = "login.html";
+  }
