@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
+            contenedor.innerHTML ='';
 
     data.products.forEach(product => {
     const elementoProducto  = document.createElement('div');
