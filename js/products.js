@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
                  style="height: 200px; object-fit: cover; border-top: 2px solid red; border-bottom: 2px solid red;">
             <div class="card-body bg-light">
                 <p class="card-text text-dark fw-bold">${product.description}</p>
-                <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center">
                     <span class="badge bg-danger fs-6 text-dark" style="border: 1px solid black;">
                         Precio: ${product.cost} ${product.currency}
                     </span>
