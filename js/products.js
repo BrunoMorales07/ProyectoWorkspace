@@ -50,3 +50,5 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error("Hubo un problema con la petición fetch:", error);
             contenedor.innerHTML = "<p>No se pudo cargar la lista de productos.</p>";
         });
+
+  

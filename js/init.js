@@ -16,6 +16,9 @@ let hideSpinner = function(){
 }
 
 let usuario = localStorage.getItem("usuario");
+ if(usuario){
+    document.getElementById("verUser").textContent = usuario;
+  }
 
 let getJSONData = function(url){
     let result = {};
