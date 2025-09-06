@@ -15,6 +15,11 @@ let hideSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "none";
 }
 
+let usuario = localStorage.getItem("usuario");
+ if(usuario){
+    document.getElementById("verUser").textContent = usuario;
+  }
+
 let getJSONData = function(url){
     let result = {};
     showSpinner();
