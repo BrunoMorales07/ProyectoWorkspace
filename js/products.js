@@ -1,17 +1,40 @@
 document.addEventListener('DOMContentLoaded', function() {
-    
+    //Agregamos el catID del localStorage
+    const categoriaID =localStorage.getItem('catID');
+    //Almacenamos la URL
+    const PRODUCTS_URL =`https://japceibal.github.io/emercado-api/cats_products/${categoriaID}.json`;
+
     const contenedor = document.getElementById('contenedor');
     contenedor.className = 'row';
-    
-    fetch('https://japceibal.github.io/emercado-api/cats_products/101.json')
-        .then(response => {
-            console.log("GET exitoso:", response.status);
-            return response.json();
-        })
-        .then(data => {
-            contenedor.innerHTML ='';
+    //Agregamos las funciones del spinner
+    let showSpinner = function(){
+  document.getElementById("spinner-wrapper").style.display = "block";
+}
 
-    data.products.forEach(product => {
+let hideSpinner = function(){
+  document.getElementById("spinner-wrapper").style.display = "none";
+}
+
+//Agregamos el fetch de init
+let getJSONData = function(url){
+    let result = {};
+    showSpinner();
+    return fetch(url)
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }else{
+        throw Error(response.statusText);
+      }
+    })
+    .then(function(response) {
+          result.status = 'ok';
+          result.data = response;
+    
+            contenedor.innerHTML ='';
+    const products =response.products || response;
+
+    products.forEach(product => {
     const elementoProducto  = document.createElement('div');
     elementoProducto.className = 'col-lg-6 col-md-12  mb-4'; 
     
@@ -44,12 +67,17 @@ document.addEventListener('DOMContentLoaded', function() {
     contenedor.appendChild(elementoProducto);
 });
 
-    
-});
-        })
-        .catch(error => {
-            console.error("Hubo un problema con la petición fetch:", error);
-            contenedor.innerHTML = "<p>No se pudo cargar la lista de productos.</p>";
-        });
+ hideSpinner();
+          return result;
+    })
 
+    .catch(function(error) {
+        result.status = 'error';
+        result.data = error;
+        hideSpinner();
+        return result;
+    });
+};
+getJSONData(PRODUCTS_URL);
+});
   
