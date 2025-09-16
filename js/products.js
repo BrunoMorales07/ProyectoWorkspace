@@ -35,6 +35,7 @@ let getJSONData = function(url){
     const products =response.products || response;
 
     products.forEach(product => {
+    localStorage.setItem("ID", product.id);
     const elementoProducto  = document.createElement('div');
     elementoProducto.className = 'col-lg-6 col-md-12  mb-4'; 
     
@@ -57,7 +58,7 @@ let getJSONData = function(url){
                 </div>
             </div>
             <div class="card-footer bg-danger text-center" style="border-top: 2px solid black;">
-                <button class="btn btn-outline-dark fw-bold" style="background-color: white;">
+                <button class="btn btn-outline-dark fw-bold btnProducts" style="background-color: white;" id="${product.id}">
                     comprar
                 </button>
             </div>
@@ -78,6 +79,16 @@ let getJSONData = function(url){
         return result;
     });
 };
-getJSONData(PRODUCTS_URL);
+getJSONData(PRODUCTS_URL).then(function() {
+
+  let arrayButtons = document.getElementsByClassName('btnProducts');
+  for (let index = 0; index < arrayButtons.length; index++) {
+    const button = arrayButtons[index];
+    button.addEventListener('click', function(e) {
+      localStorage.setItem("ID", button.id);
+      location.href = "product-info.html";
+    
+    })
+  }
+})
 });
-  
