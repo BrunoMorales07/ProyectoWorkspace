@@ -37,12 +37,12 @@ let getJSONData = function(url){
     products.forEach(product => {
     localStorage.setItem("ID", product.id);
     const elementoProducto  = document.createElement('div');
-    elementoProducto.className = 'col-lg-6 col-md-12  mb-4'; 
+    elementoProducto.className = 'col-lg-4 col-md-6 col-sm-12  mb-4'; 
     
     elementoProducto.innerHTML = `
-        <div class="card h-100" style=" border: 1px solid black;">
-            <div class="card-header bg-danger text-white text-center">
-                <h5 class="card-title mb-0 text-white fw-bold  py-2 rounded">${product.name}</h5>
+        <div class="card h-100 rounded-4 card-efect " style=" border: 1px solid black;">
+            <div class="card-header text-white text-center" style="background: var(--red-gradient);">
+                <h5 class="card-title mb-0 text-white fw-bold  py-2 rounded fs-4">${product.name}</h5>
             </div>
             <img src="${product.image}" 
                  class="card-img-top" 
@@ -51,15 +51,15 @@ let getJSONData = function(url){
             <div class="card-body bg-light">
                 <p class="card-text text-dark fw-bold">${product.description}</p>
                 <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center">
-                    <span class="badge bg-danger fs-6 text-dark" style="border: 1px solid black;">
-                        Precio: ${product.cost} ${product.currency}
+                    <span class="badge fs-6 text-white" style=" background:var(--red-gradient); border: 1px solid black;">
+                      Precio: ${product.cost} ${product.currency}
                     </span>
                     <small class="text-dark fw-bold">Vendidos: ${product.soldCount}</small>
                 </div>
             </div>
-            <div class="card-footer bg-danger text-center" style="border-top: 2px solid black;">
-                <button class="btn btn-outline-dark fw-bold btnProducts" style="background-color: white;" id="${product.id}">
-                    comprar
+            <div class="card-footer text-center" style="background:transparent;">
+                <button class="fw-bold btnProducts show-btn"  id="${product.id}">
+                    Ver Mas
                 </button>
             </div>
         </div>
