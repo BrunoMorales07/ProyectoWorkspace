@@ -1,16 +1,46 @@
+/*Variables*/
+:root{
+  --red-gradient : linear-gradient(#E21C34, #500b2b);
+  --shadows : 0 0 8px rgba(255, 255, 255, 0.8),
+              0 0 16px rgba(255, 255 ,255, 0.6),
+              0 0 24px rgba( 255, 255, 255, 0.4);
+  --typing-speed: 4s;
+  --cursor-blink: 1s;
+  --shadow-cards:0 5px 15px rgba(0,0,0,0.3);
+  --shadow-hover:0 10px 30px rgba(0,0,0,0.4),
+                0 6px 20px rgba(255, 87, 34,0.4);
+  --transition-speed : 0.3s;
+  --btn-transition: all 0.3 ease;
+  --red-shadows: 0 0 4px rgba(255, 0, 0, 1) ,
+              0 0 8px rgba(255, 45, 0, 1) ,
+              0 0 16px rgba(255, 0,85, 1);
+}
+
 .jumbotron,
 .card-body,
 .container,
 .site-header {
-  font-family: 'Verdana', serif !important;
+  font-family: Poppins, serif;
 }
 
 .jumbotron .display-4 {
   font-weight: bold;
 }
-
+/*Modificaciones al navbar*/
+nav{
+  background-color: var(--red-gradient);
+  color: #fff;
+}
 nav a {
+  color: #fff;
   text-decoration: none;
+  font-size: 1.4rem;
+  transition: all 0.3 ease;
+}
+nav a:hover{
+  color:#ffffff;
+  transform: scale(1.1);
+  text-shadow: var(--shadows);
 }
 
 .bd-placeholder-img {
@@ -187,4 +217,80 @@ a.custom-card:hover {
 
 .checked {
   color: orange;
+}
+/*Adicionalidades*/
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.btn-custom-gradient{
+  background: linear-gradient(45deg, red, yellow,red,yellow);
+  background-size: 300% 100%;
+  color: white;
+  animation: gradientMove 3s ease-in-out infinite;
+}
+
+
+.hero-section{
+  margin-top: 0%;
+  padding: 4rem;
+  background: var(--red-gradient);
+  clip-path: polygon(0 0 ,100% 0, 100% 70%,0 100%);
+  width: 100%;
+  position: relative;
+}
+#cards{
+  margin-top: 20px;
+}
+.typing-animation{
+  text-align: center;
+  margin: 0  auto;
+  font-weight: 3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: transparent;
+  animation: typing var(--typing-speed) steps(19, end),
+  blink-cursor var(--cursor-blink) var(--typing-speed)forwards;
+
+}
+@keyframes typing{
+  from{width: 0;}
+  to{width: 100%;}
+}
+@keyframes blink-cursor{
+  0% ,49%{border-color: transparent;}
+  50% , 100%{border-color: rgba(0, 0, 0, 0.5);}
+}
+.card-efect{
+  box-shadow: var(--shadow-cards);
+  transition: transform var(--transition-speed) ease,
+              box-shadow var(--transition-speed)ease;
+              cursor: pointer;
+}
+.card-efect:hover{
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-hover);
+}
+.show-btn{
+  width: 100%;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  font-weight: bold;
+  border:2px solid white;
+  background: var(--red-gradient);
+  color: white;
+  transition: var(--btn-transition);
+}
+.show-btn:hover{
+  font-size: 1.5rem;
+  transform: scale(1.05);
+  background: white;
+  color: #E21C34;
+  border-color:#E21C34;
+  box-shadow: var(--red-shadows);
 }
