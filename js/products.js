@@ -91,4 +91,3 @@ getJSONData(PRODUCTS_URL).then(function() {
     })
   }
 })
-});
