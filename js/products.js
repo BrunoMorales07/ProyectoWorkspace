@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const elementoProducto = document.createElement("div");
       elementoProducto.className = "col-lg-4 col-md-6 col-sm-12  mb-4";
       elementoProducto.innerHTML = `
-                <div class="card h-100 rounded-4 card-efect " style=" border: 1px solid black;">
+                <div class="card h-100 rounded-4 card-efect card-click" style=" border: 1px solid black;" id="card-${product.id}">
                     <div class="card-header text-white text-center" style="background: var(--red-gradient);">
                         <h5 class="card-title mb-0 text-white fw-bold  py-2 rounded fs-4">${product.name}</h5>
                     </div>
@@ -168,6 +168,14 @@ document.addEventListener("DOMContentLoaded", function () {
       const button = arrayButtons[index];
       button.addEventListener("click", function (e) {
         localStorage.setItem("productID", button.id);
+        location.href = "product-info.html";
+      });
+    }
+    let arrayCards = document.getElementsByClassName("card-click");
+    for (let index = 0; index < arrayCards.length; index++) {
+      const card = arrayCards[index];
+      card.addEventListener("click", function (e) {
+        localStorage.setItem("productID", card.id.replace("card-", ""));
         location.href = "product-info.html";
       });
     }
