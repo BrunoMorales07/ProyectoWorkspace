@@ -85,7 +85,7 @@ getJSONData(PRODUCTS_URL).then(function() {
   for (let index = 0; index < arrayButtons.length; index++) {
     const button = arrayButtons[index];
     button.addEventListener('click', function(e) {
-      localStorage.setItem("ID", button.id);
+      localStorage.setItem("productID", button.id);
       location.href = "product-info.html";
     
     })

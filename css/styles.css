@@ -188,3 +188,12 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+
+#product-info-container .img-thumbnail:hover {
+  opacity: 0.7;
+  transform: scale(1.2);
+}
+#product-info-container .img-thumbnail {
+  cursor: pointer;
+  transition: transform .2s;
+}
