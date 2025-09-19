@@ -66,111 +66,71 @@
         <div class="text-center my-5">
           <h1
             class="display-5 fw-bold text-white typing-animation"
-            style="font-family: poppins"
-          >
+            style="font-family: poppins">
             Todos los Productos
           </h1>
         </div>
       </div>
     </div>
 
-    <!--Filter-section-->
     <div class="container">
-      <div class="row align-items-center mb-4">
-        <!--Barra-de-búsqueda-->
-        <div class="row mb-3">
-          <div class="col-12 col-md-8 d-flex align-items-center">
-            <input
-              type="text"
-              class="form-control"
-              id="searchInput"
-              placeholder="Buscar productos por nombre o descripción..."
-            /><button
-              class="btn btn-outline-secondary"
-              type="button"
-              id="clearSearch"
-              title="Limpiar búsqueda"
-            >
+  <div class="row align-items-center mb-4">
+    
+    <!--Barra de búsqueda-->
+    <div class="col-12 col-lg-4 d-flex align-items-center">
+      <input type="text" class="form-control" id="searchInput"
+        placeholder="Buscar productos por nombre o descripción...">
+      <button class="btn btn-outline-secondary" type="button" id="clearSearch"
+        title="Limpiar búsqueda">
+        Limpiar
+      </button>
+    </div>
+
+
+    <!--Filtros de precio-->
+    <div class="col-12 col-lg-5 mt-2 mt-lg-0">
+      <div class="row align-items-center">
+        <div class="col-2">
+          <p class="font-weight-normal text-end my-2">Precio</p>
+        </div>
+        <div class="col-3">
+          <input class="form-control" type="number" placeholder="min." id="rangeFilterCountMin"/>
+        </div>
+        <div class="col-3">
+          <input class="form-control" type="number" placeholder="máx." id="rangeFilterCountMax"/>
+        </div>
+        <div class="col-4">
+          <div class="btn-group w-100" role="group">
+            <button class="btn btn-light" id="rangeFilterCount">
+              Filtrar
+            </button>
+            <button class="btn btn-link btn-sm" id="clearRangeFilter">
               Limpiar
             </button>
           </div>
-          <!-- Botones de filtro -->
-          <div class="col-12 col-md-4 text-end mt-2 mt-md-0">
-            <div class="btn-group btn-group-toggle" data-bs-toggle="buttons">
-              <input
-                type="radio"
-                class="btn-check"
-                name="options"
-                id="sortAsc"
-              />
-              <label class="btn btn-light" for="sortAsc">A-Z</label>
-
-              <input
-                type="radio"
-                class="btn-check"
-                name="options"
-                id="sortDesc"
-              />
-              <label class="btn btn-light" for="sortDesc">Z-A</label>
-
-              <input
-                type="radio"
-                class="btn-check"
-                name="options"
-                id="sortByCount"
-                checked
-              />
-              <label class="btn btn-light" for="sortByCount">
-                <i class="fas fa-sort-amount-down me-1"></i>
-              </label>
-            </div>
-          </div>
         </div>
-        <div class="row">
-          <div class="col-lg-6 offset-lg-6 col-md-12 mb-1 container">
-            <div class="row container p-0 m-0">
-              <div class="col">
-                <p class="font-weight-normal text-end my-2">Precio</p>
-              </div>
-              <div class="col">
-                <input
-                  class="form-control"
-                  type="number"
-                  placeholder="min."
-                  id="rangeFilterCountMin"
-                />
-              </div>
-              <div class="col">
-                <input
-                  class="form-control"
-                  type="number"
-                  placeholder="máx."
-                  id="rangeFilterCountMax"
-                />
-              </div>
-              <div class="col-3 p-0">
-                <div class="btn-group" role="group">
-                  <button class="btn btn-light btn-block" id="rangeFilterCount">
-                    Filtrar
-                  </button>
-                  <button class="btn btn-link btn-sm" id="clearRangeFilter">
-                    Limpiar
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="text-center my-5">
-        <h1
-          class="display-5 fw-bold text-white typing-animation"
-          style="font-family: poppins"
-        >
-          Todos los Productos
-        </h1>
       </div>
     </div>
+    
+     <!--Botones de filtro-->
+    <div class="col-12 col-lg-2 text-center mt-2 mt-lg-0">
+      <div class="btn-group btn-group-toggle" data-bs-toggle="buttons">
+        <input type="radio" class="btn-check" name="options" id="sortAsc"/>
+        <label class="btn btn-light" for="sortAsc">A-Z</label>
+
+        <input type="radio" class="btn-check" name="options" id="sortDesc"/>
+        <label class="btn btn-light" for="sortDesc">Z-A</label>
+
+        <input type="radio" class="btn-check" name="options" id="sortByCount" checked/>
+        <label class="btn btn-light" for="sortByCount">
+          <i class="fas fa-sort-amount-down me-1"></i>
+        </label>
+      </div>
+    </div>
+
+  </div>
+</div>
+     
     <main class="pb-5 container" id="cards">
       <!--Tarjetas-de-productos-->
       <div id="contenedor"></div>
