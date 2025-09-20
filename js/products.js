@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
       contenedor.appendChild(elementoProducto);
     });
 
-    
+
   }
 
   function sortProducts(criteria, array) {
@@ -169,10 +169,10 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 
-  getJSONData(PRODUCTS_URL).then(function() {
+  getJSONData(PRODUCTS_URL).then(function () {
     saveIdAndRedirect();
   });
-  function saveIdAndRedirect(){
+  function saveIdAndRedirect() {
     let arrayButtons = document.getElementsByClassName("btnProducts");
     for (let index = 0; index < arrayButtons.length; index++) {
       const button = arrayButtons[index];
