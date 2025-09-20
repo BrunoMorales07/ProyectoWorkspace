@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
       contenedor.appendChild(elementoProducto);
     });
 
-    
+
   }
 
   function sortProducts(criteria, array) {
@@ -99,6 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
     currentSortCriteria = sortCriteria;
     productosArray = sortProducts(currentSortCriteria, productosArray);
     showProductsList(productosArray);
+    saveIdAndRedirect();
   }
 
   document.getElementById("sortAsc").addEventListener("click", function () {
@@ -139,6 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       showProductsList(filtrados);
+      saveIdAndRedirect();
     });
 
   document
@@ -147,6 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("rangeFilterCountMin").value = "";
       document.getElementById("rangeFilterCountMax").value = "";
       showProductsList(productosArray);
+      saveIdAndRedirect();
     });
   document.getElementById("searchInput").addEventListener("input", function () {
     const query = this.value.toLowerCase();
@@ -156,13 +159,20 @@ document.addEventListener("DOMContentLoaded", function () {
       return nombre.includes(query) || descripcion.includes(query);
     });
     showProductsList(filtrados);
+    saveIdAndRedirect();
   });
   document.getElementById("clearSearch").addEventListener("click", function () {
     // Limpiar el campo de búsqueda
     document.getElementById("searchInput").value = "";
     showProductsList(productosArray);
+    saveIdAndRedirect();
   });
-  getJSONData(PRODUCTS_URL).then(function() {
+
+
+  getJSONData(PRODUCTS_URL).then(function () {
+    saveIdAndRedirect();
+  });
+  function saveIdAndRedirect() {
     let arrayButtons = document.getElementsByClassName("btnProducts");
     for (let index = 0; index < arrayButtons.length; index++) {
       const button = arrayButtons[index];
@@ -179,5 +189,6 @@ document.addEventListener("DOMContentLoaded", function () {
         location.href = "product-info.html";
       });
     }
-  });
+  }
+
 });
