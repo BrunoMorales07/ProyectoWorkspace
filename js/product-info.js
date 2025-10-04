@@ -1,39 +1,36 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
+  const productID = localStorage.getItem("productID");
+  const PRODUCTS_INFO_URL = `https://japceibal.github.io/emercado-api/products/${productID}.json`;
 
-    const productID = localStorage.getItem('productID');
-    const PRODUCTS_INFO_URL = `https://japceibal.github.io/emercado-api/products/${productID}.json`;
+  const contenedor = document.getElementById("contenedor");
 
-    const contenedor = document.getElementById('contenedor');
+  let showSpinner = function () {
+    document.getElementById("spinner-wrapper").style.display = "block";
+  };
 
-    let showSpinner = function () {
-        document.getElementById("spinner-wrapper").style.display = "block";
-    }
-
-    let hideSpinner = function () {
-        document.getElementById("spinner-wrapper").style.display = "none";
-    }
-    let getJSONData = function (url) {
-        showSpinner();
-        return fetch(url)
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw Error(response.statusText);
-                }
-            })
-            .then(function (response) {
-
-                const productDetails = response;
-                let productImages = " ";
-                for (let index = 0; index < productDetails.images.length; index++) {
-
-                    productImages += `<div class="col px-1">
+  let hideSpinner = function () {
+    document.getElementById("spinner-wrapper").style.display = "none";
+  };
+  let getJSONData = function (url) {
+    showSpinner();
+    return fetch(url)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw Error(response.statusText);
+        }
+      })
+      .then(function (response) {
+        const productDetails = response;
+        let productImages = " ";
+        for (let index = 0; index < productDetails.images.length; index++) {
+          productImages += `<div class="col px-1">
                         <img src="${productDetails.images[index]}" class="img-thumbnail" alt="...">
-                    </div>`
-                }
-                const infoProducto = document.getElementById('contenedor');
-                infoProducto.innerHTML = ` 
+                    </div>`;
+        }
+        const infoProducto = document.getElementById("contenedor");
+        infoProducto.innerHTML = ` 
                      <section class="py-0" id="product-info-container">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5">
@@ -66,28 +63,74 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
         </section>`;
 
-                hideSpinner();
-            });
+        hideSpinner();
+      });
+  };
 
-
+  getJSONData(PRODUCTS_INFO_URL).then(function () {
+    let arrayImages = document.getElementsByClassName("img-thumbnail");
+    let main = document.getElementById("main-img");
+    for (let index = 0; index < arrayImages.length; index++) {
+      const image = arrayImages[index];
+      image.addEventListener("click", function (e) {
+        main.src = image.src;
+      });
     }
+  });
 
-    getJSONData(PRODUCTS_INFO_URL).then(function () {
-        let arrayImages = document.getElementsByClassName('img-thumbnail');
-        let main = document.getElementById('main-img');
-        for (let index = 0; index < arrayImages.length; index++) {
-            const image = arrayImages[index];
-            image.addEventListener('click', function (e) {
-                main.src = image.src;
+  let boton = document.getElementById("btnBack");
+  boton.addEventListener("click", function () {
+    location.href = "products.html";
+  });
 
-            })
-        }
+  // Funcion mostrar comentarios
+  const API_URL = `https://japceibal.github.io/emercado-api/products_comments/${productID}.json`;
+
+  function mostrarEstrellas(score) {
+    let estrellas = "";
+    for (let i = 1; i <= 5; i++) {
+      if (i <= score) {
+        estrellas += '<span class="fa fa-star"></span>';
+      } else {
+        estrellas += '<span class="fa fa-star star-empty"></span>';
+      }
+    }
+    return estrellas;
+  }
+  // Cargar y mostrar
+  fetch(API_URL)
+    .then((response) => response.json())
+    .then((data) => {
+      const contenedor = document.getElementById("contenedor_comments");
+      // verificar si no hay comentarios
+      if (data.length === 0) {
+        contenedor.innerHTML = "<p>No hay comentarios todavía</p>";
+        return;
+      }
+      let html = "";
+
+      data.forEach((comentario) => {
+        html += `
+                    <div class="comentario-box">
+                        <div class="comentario-user">${comentario.user}</div>
+                        <div class="comentario-date">${
+                          comentario.dateTime
+                        }</div>
+                        <div class="comentario-stars">${mostrarEstrellas(
+                          comentario.score
+                        )}</div>
+                        <div class="comentario-text">${
+                          comentario.description
+                        }</div>
+                    </div>
+                `;
+      });
+
+      document.getElementById("contenedor_comments").innerHTML = html;
     })
-
-    let boton = document.getElementById('btnBack');
-    boton.addEventListener('click', function () {
-        location.href = "products.html"
-    })
-
-
-})
+    .catch((error) => {
+      document.getElementById("contenedor_comments").innerHTML =
+        "<p>Error al cargar comentarios</p>";
+      console.error("Error:", error);
+    });
+});
