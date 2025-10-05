@@ -377,3 +377,44 @@ a.custom-card:hover {
   line-height: 1.5;
   margin-top: 8px;
 }
+
+/*comments-form-section*/
+.star-rating i{
+  color: gray ;
+  cursor: pointer;
+  font-size: 2rem;
+  transition: transform 0.3s ease-in-out;
+}
+.star-rating i:hover{
+  color: #ffdb4d ;
+  transform: scale(1.5);
+  text-shadow: 0 0 10px #ffae42,
+               0 0 20px #ffae42;
+}
+.star-rating i.active {
+    color: #ffd700;
+}
+.comment-textarea{
+  width:250px;
+  min-height: 120px;
+  border-radius: 10px;
+  border: solid 3px #500b2b;
+}
+.send-btn{
+  width: 250px;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  font-weight: bold;
+  border:2px solid white;
+  background: var(--red-gradient);
+  color: white;
+  transition: var(--btn-transition);
+}
+.send-btn:hover{
+  font-size: 1.5rem;
+  transform: scale(1.05);
+  background: white;
+  color: #E21C34;
+  border-color:#E21C34;
+  box-shadow: var(--red-shadows);
+}

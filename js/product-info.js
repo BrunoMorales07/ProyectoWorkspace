@@ -161,3 +161,26 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Error:", error);
     });
 });
+
+//pintado de estrellas
+    const stars = document.querySelectorAll('.star');
+    const rating = document.getElementById('rating');
+    let actualRating = 0;
+
+    stars.forEach((star, index) => {
+        star.addEventListener('click', () => {
+            actualRating = index + 1;
+            rating.value = actualRating;
+            
+            stars.forEach((s, i) => {
+                s.classList.remove('fas', 'far', 'active');
+                
+                if (i < actualRating) {
+                    s.classList.add('fas', 'active');
+                } else {
+                    s.classList.add('far');
+                }
+            });
+        });
+
+    });

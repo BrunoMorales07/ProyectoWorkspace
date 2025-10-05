@@ -87,6 +87,30 @@
         </div>
         <hr />
       </div>
+       <!--caja de calificacion-->
+      <div class="form-container mx-5">
+        <h2 class="form-title my-2 text-white p-2" style="background: var(--red-gradient);"> Deja tu Opinión </h2>
+        
+        <form id="reviewForm">
+            
+            <div class="form-group my-2">
+                <label for="rating" class="form-label"></label>
+                <div class="star-rating my-4">
+                    <i class="fas fa-star star" ></i>
+                    <i class="fas fa-star star" ></i>
+                    <i class="fas fa-star star" ></i>
+                    <i class="fas fa-star star" ></i>
+                    <i class="fas fa-star star" ></i>
+                </div>
+                <input type="hidden" id="rating" name="rating" >
+            <div class="form-group"></div>
+              <label for="comments" class="form-label"></label>
+                <textarea id="comments" name="comment" class="comment-textarea" placeholder="  Escribe un comentario" required maxlength="50"></textarea>
+              </div> 
+            <button type="submit" class="submit-btn send-btn"> Enviar </button>
+        </form>
+    </div>
+  </div>
     </main>
     <footer class="text-muted">
       <div class="container">
