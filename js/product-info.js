@@ -23,10 +23,17 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .then(function (response) {
         const productDetails = response;
+        let relatedProductsImages = " ";
+        productDetails.relatedProducts.forEach((relatedProduct) => {
+          relatedProductsImages += `<div class="col-12 col-sm-6 col-lg-3 col-md-4 px-2">
+                        <img src="${relatedProduct.image}" style="max-width: 100%; cursor:pointer" alt="..." class="imgRelatedProduct" id="${relatedProduct.id}">
+                        <p class="text-danger text-center"> ${relatedProduct.name}</p>
+                    </div>`;
+        })
         let productImages = " ";
         for (let index = 0; index < productDetails.images.length; index++) {
           productImages += `<div class="col px-1">
-                        <img src="${productDetails.images[index]}" class="img-thumbnail" alt="...">
+                        <img src="${productDetails.images[index]}" class="img-thumbnail imgProduct" alt="...">
                     </div>`;
         }
         const infoProducto = document.getElementById("contenedor");
@@ -41,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <div class="row align-items-center pt-4">
                                 ${productImages}                        
                             </div>
+                            
 
                     </div>
                     <div class="col-md-6">
@@ -51,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <p class="mb-0"><strong>Descripción</strong></p>
                         <p class="lead" >${productDetails.description}</p>
                         <p><strong>Vendidos Total:</strong> ${productDetails.soldCount}</p>
-                        <p><strong>Precio:  ${productDetails.currency}${productDetails.cost}<strong></p>
+                        <h4><strong>Precio:  ${productDetails.currency}${productDetails.cost}<strong></h4>
                         <div class="d-flex">
                             
                             <button class="btn btn-lg btn-outline-dark flex-shrink-0 bg-danger mt-5" type="button" style="color:white">
@@ -60,6 +68,12 @@ document.addEventListener("DOMContentLoaded", function () {
                         </div>
                     </div>
                 </div>
+                    <div>
+                       <h4 class="mt-3">Productos Relacionados</h4>
+                          <div class="row align-items-center pt-4">
+                              ${relatedProductsImages}
+                          </div>
+                    </div>
             </div>
         </section>`;
 
@@ -76,12 +90,25 @@ document.addEventListener("DOMContentLoaded", function () {
         main.src = image.src;
       });
     }
+
+    // Función para redirigir a producto relacionado.
+       let arrayimgRelatedProduct = document.getElementsByClassName("imgRelatedProduct");
+    for (let index = 0; index < arrayimgRelatedProduct.length; index++) {
+      const imgRelatedProduct = arrayimgRelatedProduct[index];
+      imgRelatedProduct.addEventListener("click", function (e) {
+        localStorage.setItem("productID", imgRelatedProduct.id);
+        location.href = "product-info.html";
+      });
+    }
   });
 
   let boton = document.getElementById("btnBack");
   boton.addEventListener("click", function () {
-    location.href = "products.html";
+    history.back();
   });
+
+
+  
 
   // Funcion mostrar comentarios
   const API_URL = `https://japceibal.github.io/emercado-api/products_comments/${productID}.json`;
