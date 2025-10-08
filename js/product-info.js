@@ -184,3 +184,100 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
     });
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("reviewForm");
+  const contenedor = document.getElementById("contenedor_comments");
+  const stars = document.querySelectorAll(".fa-star");
+  const ratingInput = document.getElementById("rating");
+
+  const productId = localStorage.getItem("productID") || "default";
+  const commentsKey = `comments_${productId}`;
+
+  function mostrarEstrellas(score) {
+    let estrellas = "";
+    for (let i = 1; i <= 5; i++) {
+      estrellas += `<span class="fa fa-star ${i <= score ? "" : "star-empty"}"></span>`;
+    }
+    return estrellas;
+  }
+
+  function cargarComentariosLocales() {
+    const storedComments = JSON.parse(localStorage.getItem(commentsKey)) || [];
+    if (!storedComments.length) return;
+
+    storedComments.forEach((comment) => {
+      const newComment = document.createElement("div");
+      newComment.classList.add("comentario-box");
+      newComment.innerHTML = `
+        <div class="comentario-user">${comment.user}</div>
+        <div class="comentario-date">${comment.date}</div>
+        <div class="comentario-stars">${mostrarEstrellas(comment.rating)}</div>
+        <div class="comentario-text">${comment.text}</div>
+      `;
+      contenedor.appendChild(newComment); 
+    });
+  }
+
+  
+  setTimeout(cargarComentariosLocales, 150);
+
+  let selectedRating = 0;
+
+  stars.forEach((star, index) => {
+    star.addEventListener("click", () => {
+      selectedRating = index + 1;
+      ratingInput.value = selectedRating;
+      stars.forEach((s, i) => {
+        s.classList.toggle("checked", i < selectedRating);
+        s.style.color = i < selectedRating ? "gold" : "";
+      });
+    });
+  });
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const commentText = document.getElementById("comments").value.trim();
+    const ratingValue = parseInt(ratingInput.value);
+
+    if (!commentText || !ratingValue) {
+      alert("Por favor, selecciona una calificación y escribe un comentario.");
+      return;
+    }
+
+    const username = localStorage.getItem("usuario") || "Usuario anónimo";
+
+    const fecha = new Date();
+    const pad = (n) => n.toString().padStart(2, "0");
+    const fechaFormateada = `${fecha.getFullYear()}-${pad(fecha.getMonth() + 1)}-${pad(fecha.getDate())} ${pad(fecha.getHours())}:${pad(fecha.getMinutes())}:${pad(fecha.getSeconds())}`;
+
+    const newCommentData = {
+      user: username,
+      date: fechaFormateada,
+      rating: ratingValue,
+      text: commentText,
+    };
+
+    
+    const storedComments = JSON.parse(localStorage.getItem(commentsKey)) || [];
+    storedComments.push(newCommentData);
+    localStorage.setItem(commentsKey, JSON.stringify(storedComments));
+
+    
+    const newComment = document.createElement("div");
+    newComment.classList.add("comentario-box");
+    newComment.innerHTML = `
+      <div class="comentario-user">${username}</div>
+      <div class="comentario-date">${fechaFormateada}</div>
+      <div class="comentario-stars">${mostrarEstrellas(ratingValue)}</div>
+      <div class="comentario-text">${commentText}</div>
+    `;
+    contenedor.appendChild(newComment);
+
+    form.reset();
+    selectedRating = 0;
+    stars.forEach((s) => (s.style.color = ""));
+  });
+});
