@@ -186,7 +186,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    document.addEventListener("DOMContentLoaded", () => {
+    let data = [];  
+
+document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("reviewForm");
   const contenedor = document.getElementById("contenedor_comments");
   const stars = document.querySelectorAll(".fa-star");
@@ -203,28 +205,45 @@ document.addEventListener("DOMContentLoaded", function () {
     return estrellas;
   }
 
-  function cargarComentariosLocales() {
-    const storedComments = JSON.parse(localStorage.getItem(commentsKey)) || [];
-    if (!storedComments.length) return;
+  function cargarComentarios() {
+    fetch(`https://japceibal.github.io/emercado-api/products_comments/${productId}.json`)
+      .then((response) => response.json())
+      .then((apiComments) => {
+      
+        const storedComments = JSON.parse(localStorage.getItem(commentsKey)) || [];
 
-    storedComments.forEach((comment) => {
-      const newComment = document.createElement("div");
-      newComment.classList.add("comentario-box");
-      newComment.innerHTML = `
-        <div class="comentario-user">${comment.user}</div>
-        <div class="comentario-date">${comment.date}</div>
-        <div class="comentario-stars">${mostrarEstrellas(comment.rating)}</div>
-        <div class="comentario-text">${comment.text}</div>
+        data = apiComments.concat(storedComments);
+        if (data.length === 0) {
+          contenedor.innerHTML = "<p>No hay comentarios todavía</p>";
+        } else {
+          renderComentarios();
+        }
+      })
+      .catch((error) => {
+        contenedor.innerHTML = "<p>Error al cargar comentarios</p>";
+        console.error("Error:", error);
+      });
+  }
+  function renderComentarios() {
+    let html = "";
+
+    data.forEach((comentario) => {
+      html += `
+        <div class="comentario-box">
+          <div class="comentario-user">${comentario.user}</div>
+          <div class="comentario-date">${comentario.dateTime || comentario.date}</div>
+          <div class="comentario-stars">${mostrarEstrellas(comentario.score || comentario.rating)}</div>
+          <div class="comentario-text">${comentario.description || comentario.text}</div>
+        </div>
       `;
-      contenedor.appendChild(newComment); 
     });
+
+    contenedor.innerHTML = html;
   }
 
-  
-  setTimeout(cargarComentariosLocales, 150);
+  cargarComentarios();
 
   let selectedRating = 0;
-
   stars.forEach((star, index) => {
     star.addEventListener("click", () => {
       selectedRating = index + 1;
@@ -253,28 +272,20 @@ document.addEventListener("DOMContentLoaded", function () {
     const pad = (n) => n.toString().padStart(2, "0");
     const fechaFormateada = `${fecha.getFullYear()}-${pad(fecha.getMonth() + 1)}-${pad(fecha.getDate())} ${pad(fecha.getHours())}:${pad(fecha.getMinutes())}:${pad(fecha.getSeconds())}`;
 
-    const newCommentData = {
+    const nuevoComentario = {
       user: username,
       date: fechaFormateada,
       rating: ratingValue,
       text: commentText,
     };
 
-    
+    data.push(nuevoComentario);
+
     const storedComments = JSON.parse(localStorage.getItem(commentsKey)) || [];
-    storedComments.push(newCommentData);
+    storedComments.push(nuevoComentario);
     localStorage.setItem(commentsKey, JSON.stringify(storedComments));
 
-    
-    const newComment = document.createElement("div");
-    newComment.classList.add("comentario-box");
-    newComment.innerHTML = `
-      <div class="comentario-user">${username}</div>
-      <div class="comentario-date">${fechaFormateada}</div>
-      <div class="comentario-stars">${mostrarEstrellas(ratingValue)}</div>
-      <div class="comentario-text">${commentText}</div>
-    `;
-    contenedor.appendChild(newComment);
+    renderComentarios();
 
     form.reset();
     selectedRating = 0;
