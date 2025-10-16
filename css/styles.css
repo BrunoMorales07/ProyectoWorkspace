@@ -1,19 +1,17 @@
 /*Variables*/
-:root{
-  --red-gradient : linear-gradient(#E21C34, #500b2b);
-  --shadows : 0 0 8px rgba(255, 255, 255, 0.8),
-              0 0 16px rgba(255, 255 ,255, 0.6),
-              0 0 24px rgba( 255, 255, 255, 0.4);
+:root {
+  --red-gradient: linear-gradient(#e21c34, #500b2b);
+  --shadows: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.6),
+    0 0 24px rgba(255, 255, 255, 0.4);
   --typing-speed: 4s;
   --cursor-blink: 1s;
-  --shadow-cards:0 5px 15px rgba(0,0,0,0.3);
-  --shadow-hover:0 10px 30px rgba(0,0,0,0.4),
-                0 6px 20px rgba(255, 87, 34,0.4);
-  --transition-speed : 0.3s;
+  --shadow-cards: 0 5px 15px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 10px 30px rgba(0, 0, 0, 0.4),
+    0 6px 20px rgba(255, 87, 34, 0.4);
+  --transition-speed: 0.3s;
   --btn-transition: all 0.3 ease;
-  --red-shadows: 0 0 4px rgba(255, 0, 0, 1) ,
-              0 0 8px rgba(255, 45, 0, 1) ,
-              0 0 16px rgba(255, 0,85, 1);
+  --red-shadows: 0 0 4px rgba(255, 0, 0, 1), 0 0 8px rgba(255, 45, 0, 1),
+    0 0 16px rgba(255, 0, 85, 1);
 }
 
 .jumbotron,
@@ -27,7 +25,7 @@
   font-weight: bold;
 }
 /*Modificaciones al navbar*/
-nav{
+nav {
   background-color: var(--red-gradient);
   color: #fff;
 }
@@ -37,8 +35,8 @@ nav a {
   font-size: 1.4rem;
   transition: all 0.3 ease;
 }
-nav a:hover{
-  color:#ffffff;
+nav a:hover {
+  color: #ffffff;
   transform: scale(1.1);
   text-shadow: var(--shadows);
 }
@@ -62,8 +60,8 @@ nav a:hover{
   height: 50vh;
   padding: 5em inherit;
   margin-bottom: 0;
-  background-color: #53C0FB;
-  background: url('../img/cover_back.png');
+  background-color: #53c0fb;
+  background: url("../img/cover_back.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -103,12 +101,12 @@ footer {
 }
 
 footer p {
-  margin-bottom: .25rem;
+  margin-bottom: 0.25rem;
 }
 
 .site-header a {
   color: white;
-  transition: ease-in-out color .15s;
+  transition: ease-in-out color 0.15s;
 }
 
 .site-header .dropdown-menu a {
@@ -116,7 +114,7 @@ footer p {
 }
 
 .dropzone {
-  border: 2px dashed #0087F7;
+  border: 2px dashed #0087f7;
   border-radius: 5px;
   background: white;
 }
@@ -221,33 +219,38 @@ a.custom-card:hover {
 /*Adicionalidades*/
 
 @keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-.btn-custom-gradient{
-  background: linear-gradient(45deg, red, yellow,red,yellow);
+.btn-custom-gradient {
+  background: linear-gradient(45deg, red, yellow, red, yellow);
   background-size: 300% 100%;
   color: white;
   animation: gradientMove 3s ease-in-out infinite;
 }
 
-
-.hero-section{
+.hero-section {
   margin-top: 0%;
   padding: 4rem;
   background: var(--red-gradient);
-  clip-path: polygon(0 0 ,100% 0, 100% 70%,0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
   width: 100%;
   position: relative;
 }
-#cards{
+#cards {
   margin-top: 20px;
 }
-.typing-animation{
+.typing-animation {
   text-align: center;
-  margin: 0  auto;
+  margin: 0 auto;
   font-weight: 3rem;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
@@ -255,29 +258,150 @@ a.custom-card:hover {
   white-space: nowrap;
   border-right: transparent;
   animation: typing var(--typing-speed) steps(19, end),
-  blink-cursor var(--cursor-blink) var(--typing-speed)forwards;
-
+    blink-cursor var(--cursor-blink) var(--typing-speed) forwards;
 }
-@keyframes typing{
-  from{width: 0;}
-  to{width: 100%;}
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }
-@keyframes blink-cursor{
-  0% ,49%{border-color: transparent;}
-  50% , 100%{border-color: rgba(0, 0, 0, 0.5);}
+@keyframes blink-cursor {
+  0%,
+  49% {
+    border-color: transparent;
+  }
+  50%,
+  100% {
+    border-color: rgba(0, 0, 0, 0.5);
+  }
 }
-.card-efect{
+.card-efect {
   box-shadow: var(--shadow-cards);
   transition: transform var(--transition-speed) ease,
-              box-shadow var(--transition-speed)ease;
-              cursor: pointer;
+    box-shadow var(--transition-speed) ease;
+  cursor: pointer;
 }
-.card-efect:hover{
+.card-efect:hover {
   transform: translateY(-10px);
   box-shadow: var(--shadow-hover);
 }
-.show-btn{
+.show-btn {
   width: 100%;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  font-weight: bold;
+  border: 2px solid white;
+  background: var(--red-gradient);
+  color: white;
+  transition: var(--btn-transition);
+}
+.show-btn:hover {
+  font-size: 1.5rem;
+  transform: scale(1.05);
+  background: white;
+  color: #e21c34;
+  border-color: #e21c34;
+  box-shadow: var(--red-shadows);
+}
+
+#product-info-container .img-thumbnail:hover {
+  opacity: 0.7;
+  transform: scale(1.2);
+}
+#product-info-container .img-thumbnail {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+/* Contenedor de comentarios */
+#comentarios {
+  max-width: 800px;
+  margin: 30px auto;
+  display: flex;
+}
+
+/* Cada comentario */
+.comentario-box {
+  background-color: #ffffff;
+  border: 1px solid #fe0303;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(212, 127, 127, 0.08);
+}
+
+.comentario-box:hover {
+  box-shadow: 0 4px 12px rgba(212, 127, 127, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Header del comentario */
+.comentario-header {
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.comentario-user {
+  font-weight: 600;
+  color: #fc0303;
+  font-size: 1rem;
+}
+
+.comentario-date {
+  color: #b34747;
+  font-size: 0.85rem;
+}
+
+/* Estrellas */
+.comentario-stars {
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+}
+
+.comentario-stars .fa-star {
+  color: #ffc107;
+  margin-right: 2px;
+}
+
+.comentario-stars .star-empty {
+  color: #e4e6eb;
+}
+
+/* Texto del comentario */
+.comentario-text {
+  color: #050505;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-top: 8px;
+}
+
+/*comments-form-section*/
+.star-rating i{
+  color: gray ;
+  cursor: pointer;
+  font-size: 2rem;
+  transition: transform 0.3s ease-in-out;
+}
+.star-rating i:hover{
+  color: #ffdb4d ;
+  transform: scale(1.5);
+  text-shadow: 0 0 10px #ffae42,
+               0 0 20px #ffae42;
+}
+.star-rating i.active {
+    color: #ffd700;
+}
+.comment-textarea{
+  width:250px;
+  min-height: 120px;
+  border-radius: 10px;
+  border: solid 3px #500b2b;
+}
+.send-btn{
+  width: 250px;
   font-size: 1rem;
   letter-spacing: 2px;
   font-weight: bold;
@@ -286,7 +410,7 @@ a.custom-card:hover {
   color: white;
   transition: var(--btn-transition);
 }
-.show-btn:hover{
+.send-btn:hover{
   font-size: 1.5rem;
   transform: scale(1.05);
   background: white;

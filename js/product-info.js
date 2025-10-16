@@ -1,5 +1,4 @@
-<<<<<<< Updated upstream
-=======
+
 document.addEventListener("DOMContentLoaded", function () {
   const productID = localStorage.getItem("productID");
   const PRODUCTS_INFO_URL = `https://japceibal.github.io/emercado-api/products/${productID}.json`;
@@ -188,6 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
+
     document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("reviewForm");
   const contenedor = document.getElementById("contenedor_comments");
@@ -283,4 +283,3 @@ document.addEventListener("DOMContentLoaded", function () {
     stars.forEach((s) => (s.style.color = ""));
   });
 });
->>>>>>> Stashed changes
