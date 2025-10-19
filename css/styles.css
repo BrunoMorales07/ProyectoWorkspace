@@ -450,4 +450,69 @@ body {
     transition: background-color 0.3s ease, 
                 color 0.3s ease, 
                 border-color 0.3s ease;
+  }
+/*My-Profile*/
+.breadcrumb{
+  margin-top: 1rem;
+  display: flex;
+
+}
+.breadcrumb-item a{
+  color:gray;
+  display: flex;
+  align-items: center;
+}
+.breadcrumb-item a:hover{
+  color: #666;
+}
+.breadcrumb-item.active{
+  color:#E21C34 ;
+  font-size: 1.5rem;
+}
+  button.pencil {
+  background: none;
+  border: none;
+  color: #E21C34 ;
+  cursor: pointer;
+  font-size: 3rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+.pencil i{
+  color: inherit;
+  font-size: inherit;
+}
+button.pencil:hover{
+  transform: scale(1.2);
+  filter: drop-shadow( 0 0 8px #e21c43);
+}
+.img-container {
+  width: 200px;
+  height: 200px;
+  padding: 0;
+  border-radius: 50%;
+  border: solid 1px red;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+}
+
+.img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .img-container {
+    width: 150px;
+    height: 150px;
+  }
 }
