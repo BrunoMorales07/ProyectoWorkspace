@@ -418,6 +418,29 @@ a.custom-card:hover {
   border-color:#E21C34;
   box-shadow: var(--red-shadows);
 }
+[data-theme="dark"] {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --text-primary: #e9ecef;
+    --text-secondary: #adb5bd;
+    --border-color: #495057;
+    --accent: #0d6efd;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.card {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+}
+* {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease, 
+                border-color 0.3s ease;
+  }
 /*My-Profile*/
 .breadcrumb{
   margin-top: 1rem;
