@@ -61,13 +61,13 @@ document.addEventListener("DOMContentLoaded", function () {
                          class="card-img-top" 
                          alt="${product.name}" 
                          style="height: 200px; object-fit: cover; border-top: 2px solid red; border-bottom: 2px solid red;">
-                    <div class="card-body bg-light">
-                        <p class="card-text text-dark fw-bold">${product.description}</p>
+                    <div class="card-body">
+                        <p class="card-text fw-bold">${product.description}</p>
                         <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center">
                             <span class="badge fs-6 text-white" style=" background:var(--red-gradient); border: 1px solid black;">
                               Precio: ${product.cost} ${product.currency}
                             </span>
-                            <small class="text-dark fw-bold">Vendidos: ${product.soldCount}</small>
+                            <small class="card-text fw-bold">Vendidos: ${product.soldCount}</small>
                         </div>
                     </div>
                     <div class="card-footer text-center" style="background:transparent;">
@@ -192,3 +192,28 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 });
+
+function toggleTheme() {
+    let html = document.documentElement;
+    let currentTheme = html.getAttribute('data-theme');
+    let newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    html.setAttribute('data-theme', newTheme);
+    
+    let icon = document.getElementById('theme-icon');
+    if (newTheme === 'dark') {
+        icon.className = 'fas fa-sun';
+    } else {
+        icon.className = 'fas fa-moon';
+    }
+    
+    localStorage.setItem('theme', newTheme);
+
+     document.querySelectorAll('.card').forEach(card => {
+    card-body.toggle('dark-card');
+    card-text.toggle('text-white');
+  });
+}
+
+let savedTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
