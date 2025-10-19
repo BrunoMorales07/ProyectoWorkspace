@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
   const productID = localStorage.getItem("productID");
   const PRODUCTS_INFO_URL = `https://japceibal.github.io/emercado-api/products/${productID}.json`;
@@ -186,6 +187,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
+
+    document.addEventListener("DOMContentLoaded", () => {
     let data = [];  
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -204,6 +207,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     return estrellas;
   }
+
+  function cargarComentariosLocales() {
+    const storedComments = JSON.parse(localStorage.getItem(commentsKey)) || [];
+    if (!storedComments.length) return;
+
+    storedComments.forEach((comment) => {
+      const newComment = document.createElement("div");
+      newComment.classList.add("comentario-box");
+      newComment.innerHTML = `
+        <div class="comentario-user">${comment.user}</div>
+        <div class="comentario-date">${comment.date}</div>
+        <div class="comentario-stars">${mostrarEstrellas(comment.rating)}</div>
+        <div class="comentario-text">${comment.text}</div>
+      `;
+      contenedor.appendChild(newComment); 
+    });
+  }
+
+  
+  setTimeout(cargarComentariosLocales, 150);
+
+  let selectedRating = 0;
 
   function cargarComentarios() {
     fetch(`https://japceibal.github.io/emercado-api/products_comments/${productId}.json`)
@@ -272,6 +297,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const pad = (n) => n.toString().padStart(2, "0");
     const fechaFormateada = `${fecha.getFullYear()}-${pad(fecha.getMonth() + 1)}-${pad(fecha.getDate())} ${pad(fecha.getHours())}:${pad(fecha.getMinutes())}:${pad(fecha.getSeconds())}`;
 
+    const newCommentData = {
     const nuevoComentario = {
       user: username,
       date: fechaFormateada,
@@ -279,6 +305,21 @@ document.addEventListener("DOMContentLoaded", () => {
       text: commentText,
     };
 
+    
+    const storedComments = JSON.parse(localStorage.getItem(commentsKey)) || [];
+    storedComments.push(newCommentData);
+    localStorage.setItem(commentsKey, JSON.stringify(storedComments));
+
+    
+    const newComment = document.createElement("div");
+    newComment.classList.add("comentario-box");
+    newComment.innerHTML = `
+      <div class="comentario-user">${username}</div>
+      <div class="comentario-date">${fechaFormateada}</div>
+      <div class="comentario-stars">${mostrarEstrellas(ratingValue)}</div>
+      <div class="comentario-text">${commentText}</div>
+    `;
+    contenedor.appendChild(newComment);
     data.push(nuevoComentario);
 
     const storedComments = JSON.parse(localStorage.getItem(commentsKey)) || [];
