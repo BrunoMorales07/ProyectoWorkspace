@@ -12,7 +12,8 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1"
+      style="background: var(--red-gradient); color: white" >
     <div class="container">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,27 +22,39 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav w-100 justify-content-between">
           <li class="nav-item">
-            <a class="nav-link" href="index.html">Inicio</a>
+            <a class="nav-link" href="index.html" style="color: white">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="categories.html">Categorías</a>
+            <a class="nav-link" href="categories.html" style="color: white" >Categorías</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="sell.html">Vender</a>
+            <a class="nav-link" href="sell.html" style="color: white" >Vender</a>
           </li>
-          <li class="nav-item">
-              <div class="nav-link" id="verUser"></div>
-          </li>
+           <li class="nav-item">
+              <a class="nav-link" href="my-profile.html" id="verUser"style="color: white"></a>
+            </li>
         </ul>
       </div>
     </div>
   </nav>
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
+    <div class="container my-4">
+      <H1 class="fw-bold fs-1 mb-3" style="color:#E21C34 ;" >Carrito</H1>
+<!--PRODUCTOS DEL CARRITO-->
+      <div id="product-cart"></div>
+<!--Total del carrito-->
+      <div class=" col-3 p-3 total" style="border: 1px solid black;">
+        <h5 class="fw-bold">Total</h5>
+        <p>precio</p>
+        <button class="cart-btn">Pagar</button>
+      </div>
+
+    </div>
+    <!-- <div class="container">
+    <div class="alert alert-danger text-center" role="alert">
         <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
       </div>
-    </div>
+    </div>-->
   </main>
   <footer class="text-muted">
     <div class="container">
