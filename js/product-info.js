@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <img src="${relatedProduct.image}" style="max-width: 100%; cursor:pointer" alt="..." class="imgRelatedProduct" id="${relatedProduct.id}">
                         <p class="text-danger text-center"> ${relatedProduct.name}</p>
                     </div>`;
-        })
+        });
         let productImages = " ";
         for (let index = 0; index < productDetails.images.length; index++) {
           productImages += `<div class="col px-1">
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <h4><strong>Precio:  ${productDetails.currency}${productDetails.cost}<strong></h4>
                         <div class="d-flex">
                             
-                            <button class="btn btn-lg btn-outline-dark flex-shrink-0 bg-danger mt-5" type="button" style="color:white">
+                            <button class="btn btn-lg btn-outline-dark flex-shrink-0 bg-danger mt-5" type="button" style="color:white" id="btnComprar">
                                 COMPRAR
                             </button>
                         </div>
@@ -78,10 +78,12 @@ document.addEventListener("DOMContentLoaded", function () {
         </section>`;
 
         hideSpinner();
+
+        return response;
       });
   };
 
-  getJSONData(PRODUCTS_INFO_URL).then(function () {
+  getJSONData(PRODUCTS_INFO_URL).then(function (response) {
     let arrayImages = document.getElementsByClassName("img-thumbnail");
     let main = document.getElementById("main-img");
     for (let index = 0; index < arrayImages.length; index++) {
@@ -92,7 +94,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Función para redirigir a producto relacionado.
-       let arrayimgRelatedProduct = document.getElementsByClassName("imgRelatedProduct");
+    let arrayimgRelatedProduct =
+      document.getElementsByClassName("imgRelatedProduct");
     for (let index = 0; index < arrayimgRelatedProduct.length; index++) {
       const imgRelatedProduct = arrayimgRelatedProduct[index];
       imgRelatedProduct.addEventListener("click", function (e) {
@@ -100,15 +103,49 @@ document.addEventListener("DOMContentLoaded", function () {
         location.href = "product-info.html";
       });
     }
+
+    //Funcion para comprar
+    const btnComprar = document.getElementById("btnComprar");
+    btnComprar.addEventListener("click", function () {
+      // Guardar info en localStorage
+      const producto = {
+        id: response.id,
+        name: response.name,
+        cost: response.cost,
+        count: 1,
+        currency: response.currency,
+        image: response.images[0],
+      };
+
+      // carrito actual o crear uno nuevo
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      // Verificar si el producto ya existe en el carrito
+      const productoExistente = cart.findIndex(
+        (item) => item.id === producto.id
+      );
+
+      if (productoExistente !== -1) {
+        // Si existe, aumentar la cantidad
+        cart[productoExistente].count += 1;
+      } else {
+        // Si no existe, agregarlo al carrito
+        cart.push(producto);
+      }
+
+      // Guardar el carrito actualizado
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      // Navegar a cart.html
+      window.location.href = "cart.html";
+    });
   });
 
+  // Boton volver atras
   let boton = document.getElementById("btnBack");
   boton.addEventListener("click", function () {
     history.back();
   });
-
-
-  
 
   // Funcion mostrar comentarios
   const API_URL = `https://japceibal.github.io/emercado-api/products_comments/${productID}.json`;
@@ -160,135 +197,150 @@ document.addEventListener("DOMContentLoaded", function () {
         "<p>Error al cargar comentarios</p>";
       console.error("Error:", error);
     });
-});
 
-//pintado de estrellas
-    const stars = document.querySelectorAll('.star');
-    const rating = document.getElementById('rating');
-    let actualRating = 0;
+  //pintado de estrellas
+  const stars = document.querySelectorAll(".star");
+  const rating = document.getElementById("rating");
+  let actualRating = 0;
 
-    stars.forEach((star, index) => {
-        star.addEventListener('click', () => {
-            actualRating = index + 1;
-            rating.value = actualRating;
-            
-            stars.forEach((s, i) => {
-                s.classList.remove('fas', 'far', 'active');
-                
-                if (i < actualRating) {
-                    s.classList.add('fas', 'active');
-                } else {
-                    s.classList.add('far');
-                }
-            });
-        });
-
-    });
-
-
-    let data = [];  
-
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("reviewForm");
-  const contenedor = document.getElementById("contenedor_comments");
-  const stars = document.querySelectorAll(".fa-star");
-  const ratingInput = document.getElementById("rating");
-
-  const productId = localStorage.getItem("productID") || "default";
-  const commentsKey = `comments_${productId}`;
-
-  function mostrarEstrellas(score) {
-    let estrellas = "";
-    for (let i = 1; i <= 5; i++) {
-      estrellas += `<span class="fa fa-star ${i <= score ? "" : "star-empty"}"></span>`;
-    }
-    return estrellas;
-  }
-
-  function cargarComentarios() {
-    fetch(`https://japceibal.github.io/emercado-api/products_comments/${productId}.json`)
-      .then((response) => response.json())
-      .then((apiComments) => {
-      
-        const storedComments = JSON.parse(localStorage.getItem(commentsKey)) || [];
-
-        data = apiComments.concat(storedComments);
-        if (data.length === 0) {
-          contenedor.innerHTML = "<p>No hay comentarios todavía</p>";
-        } else {
-          renderComentarios();
-        }
-      })
-      .catch((error) => {
-        contenedor.innerHTML = "<p>Error al cargar comentarios</p>";
-        console.error("Error:", error);
-      });
-  }
-  function renderComentarios() {
-    let html = "";
-
-    data.forEach((comentario) => {
-      html += `
-        <div class="comentario-box">
-          <div class="comentario-user">${comentario.user}</div>
-          <div class="comentario-date">${comentario.dateTime || comentario.date}</div>
-          <div class="comentario-stars">${mostrarEstrellas(comentario.score || comentario.rating)}</div>
-          <div class="comentario-text">${comentario.description || comentario.text}</div>
-        </div>
-      `;
-    });
-
-    contenedor.innerHTML = html;
-  }
-
-  cargarComentarios();
-
-  let selectedRating = 0;
   stars.forEach((star, index) => {
     star.addEventListener("click", () => {
-      selectedRating = index + 1;
-      ratingInput.value = selectedRating;
+      actualRating = index + 1;
+      rating.value = actualRating;
+
       stars.forEach((s, i) => {
-        s.classList.toggle("checked", i < selectedRating);
-        s.style.color = i < selectedRating ? "gold" : "";
+        s.classList.remove("fas", "far", "active");
+
+        if (i < actualRating) {
+          s.classList.add("fas", "active");
+        } else {
+          s.classList.add("far");
+        }
       });
     });
   });
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
+  let data = [];
 
-    const commentText = document.getElementById("comments").value.trim();
-    const ratingValue = parseInt(ratingInput.value);
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("reviewForm");
+    const contenedor = document.getElementById("contenedor_comments");
+    const stars = document.querySelectorAll(".fa-star");
+    const ratingInput = document.getElementById("rating");
 
-    if (!commentText || !ratingValue) {
-      alert("Por favor, selecciona una calificación y escribe un comentario.");
-      return;
+    const productId = localStorage.getItem("productID") || "default";
+    const commentsKey = `comments_${productId}`;
+
+    function mostrarEstrellas(score) {
+      let estrellas = "";
+      for (let i = 1; i <= 5; i++) {
+        estrellas += `<span class="fa fa-star ${
+          i <= score ? "" : "star-empty"
+        }"></span>`;
+      }
+      return estrellas;
     }
 
-    const username = localStorage.getItem("usuario") || "Usuario anónimo";
+    function cargarComentarios() {
+      fetch(
+        `https://japceibal.github.io/emercado-api/products_comments/${productId}.json`
+      )
+        .then((response) => response.json())
+        .then((apiComments) => {
+          const storedComments =
+            JSON.parse(localStorage.getItem(commentsKey)) || [];
 
-    const fecha = new Date();
-    const pad = (n) => n.toString().padStart(2, "0");
-    const fechaFormateada = `${fecha.getFullYear()}-${pad(fecha.getMonth() + 1)}-${pad(fecha.getDate())} ${pad(fecha.getHours())}:${pad(fecha.getMinutes())}:${pad(fecha.getSeconds())}`;
+          data = apiComments.concat(storedComments);
+          if (data.length === 0) {
+            contenedor.innerHTML = "<p>No hay comentarios todavía</p>";
+          } else {
+            renderComentarios();
+          }
+        })
+        .catch((error) => {
+          contenedor.innerHTML = "<p>Error al cargar comentarios</p>";
+          console.error("Error:", error);
+        });
+    }
+    function renderComentarios() {
+      let html = "";
 
-    const nuevoComentario = {
-      user: username,
-      date: fechaFormateada,
-      rating: ratingValue,
-      text: commentText,
-    };
+      data.forEach((comentario) => {
+        html += `
+        <div class="comentario-box">
+          <div class="comentario-user">${comentario.user}</div>
+          <div class="comentario-date">${
+            comentario.dateTime || comentario.date
+          }</div>
+          <div class="comentario-stars">${mostrarEstrellas(
+            comentario.score || comentario.rating
+          )}</div>
+          <div class="comentario-text">${
+            comentario.description || comentario.text
+          }</div>
+        </div>
+      `;
+      });
 
-    data.push(nuevoComentario);
+      contenedor.innerHTML = html;
+    }
 
-    const storedComments = JSON.parse(localStorage.getItem(commentsKey)) || [];
-    storedComments.push(nuevoComentario);
-    localStorage.setItem(commentsKey, JSON.stringify(storedComments));
+    cargarComentarios();
 
-    renderComentarios();
+    let selectedRating = 0;
+    stars.forEach((star, index) => {
+      star.addEventListener("click", () => {
+        selectedRating = index + 1;
+        ratingInput.value = selectedRating;
+        stars.forEach((s, i) => {
+          s.classList.toggle("checked", i < selectedRating);
+          s.style.color = i < selectedRating ? "gold" : "";
+        });
+      });
+    });
 
-    form.reset();
-    selectedRating = 0;
-    stars.forEach((s) => (s.style.color = ""));
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const commentText = document.getElementById("comments").value.trim();
+      const ratingValue = parseInt(ratingInput.value);
+
+      if (!commentText || !ratingValue) {
+        alert(
+          "Por favor, selecciona una calificación y escribe un comentario."
+        );
+        return;
+      }
+
+      const username = localStorage.getItem("usuario") || "Usuario anónimo";
+
+      const fecha = new Date();
+      const pad = (n) => n.toString().padStart(2, "0");
+      const fechaFormateada = `${fecha.getFullYear()}-${pad(
+        fecha.getMonth() + 1
+      )}-${pad(fecha.getDate())} ${pad(fecha.getHours())}:${pad(
+        fecha.getMinutes()
+      )}:${pad(fecha.getSeconds())}`;
+
+      const nuevoComentario = {
+        user: username,
+        date: fechaFormateada,
+        rating: ratingValue,
+        text: commentText,
+      };
+
+      data.push(nuevoComentario);
+
+      const storedComments =
+        JSON.parse(localStorage.getItem(commentsKey)) || [];
+      storedComments.push(nuevoComentario);
+      localStorage.setItem(commentsKey, JSON.stringify(storedComments));
+
+      renderComentarios();
+
+      form.reset();
+      selectedRating = 0;
+      stars.forEach((s) => (s.style.color = ""));
+    });
   });
 });
