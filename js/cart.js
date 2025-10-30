@@ -4,6 +4,8 @@ const cards =document.getElementById('product-cart');
 
 function displayProducts (){
     const products = JSON.parse(localStorage.getItem('cart'));
+    let contenedorTotal= document.getElementById('precioTotal');
+    let totalGeneral = 0
 
     if(products && products.length >0){
         cards.innerHTML='';
@@ -11,6 +13,9 @@ function displayProducts (){
         products.forEach((producto, index) => {
             const actualProduct = document.createElement('div');
             actualProduct.className='row align-items-center cart-box';
+
+            let SubTotal = producto.cost * producto.count;
+            totalGeneral += SubTotal;
 
             actualProduct.innerHTML= `
             <div class="col-lg-2">
@@ -30,6 +35,12 @@ function displayProducts (){
              `;
              cards.appendChild(actualProduct);
         });
+
+        if(contenedorTotal){
+            contenedorTotal.innerHTML = ` $ ${totalGeneral}`;
+        }
+
+        
 
     }else{
         cards.innerHTML=`<p> No hay productos en el carrito</p>`
