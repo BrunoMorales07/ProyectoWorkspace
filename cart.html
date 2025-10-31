@@ -12,8 +12,7 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1"
-      style="background: var(--red-gradient); color: white" >
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1" style="background: var(--red-gradient); color: white">
     <div class="container">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,24 +24,30 @@
             <a class="nav-link" href="index.html" style="color: white">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="categories.html" style="color: white" >Categorías</a>
+            <a class="nav-link" href="categories.html" style="color: white">Categorías</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="sell.html" style="color: white" >Vender</a>
+            <a class="nav-link" href="cart.html" style="color: white">Mi Carrito <span class="badge text-bg-info"
+                style="background-color:  gray;">
+                <div id="cantMyCart"></div>
+              </span></a>
           </li>
-           <li class="nav-item">
-              <a class="nav-link" href="my-profile.html" id="verUser"style="color: white"></a>
-            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="sell.html" style="color: white">Vender</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="my-profile.html" id="verUser" style="color: white"></a>
+          </li>
         </ul>
       </div>
     </div>
   </nav>
   <main>
     <div class="container my-4">
-      <H1 class="fw-bold fs-1 mb-3" style="color:#E21C34 ;" >Carrito</H1>
-<!--PRODUCTOS DEL CARRITO-->
+      <H1 class="fw-bold fs-1 mb-3" style="color:#E21C34 ;">Carrito</H1>
+      <!--PRODUCTOS DEL CARRITO-->
       <div id="product-cart"></div>
-<!--Total del carrito-->
+      <!--Total del carrito-->
       <div class=" col-3 p-3 total" style="border: 1px solid black;">
         <h5 class="fw-bold">Total</h5>
         <p id="precioTotal"></p>
@@ -61,7 +66,8 @@
       <p class="float-end">
         <a href="#">Volver arriba</a>
       </p>
-      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a></p>
+      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a>
+      </p>
     </div>
   </footer>
   <div id="spinner-wrapper">

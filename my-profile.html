@@ -1,187 +1,157 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <title>eMercado - Todo lo que busques está aquí</title>
-    <link
-      href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i"
-      rel="stylesheet"
-    />
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/styles.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>eMercado - Todo lo que busques está aquí</title>
+  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <link href="css/styles.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
       }
+    }
+  </style>
+</head>
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <nav
-      class="navbar navbar-expand-lg navbar-dark bg-dark p-1"
-      style="background: var(--red-gradient); color: white"
-    >
-      <div class="container">
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav w-100 justify-content-between">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html" style="color: white">
-                Inicio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="categories.html" style="color: white"
-                >Categorías</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="sell.html" style="color: white"
-                >Vender</a>
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                href="my-profile.html"
-                id="verUser"
-                style="color: white"></a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <main>
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">
-            Perfil de usuario
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1" style="background: var(--red-gradient); color: white">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav w-100 justify-content-between">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html" style="color: white">
+              Inicio</a>
           </li>
-        </ol>
-      </nav>
-     <div class="container-fluid">
-  <div class="row mx-5 my-5">
-    <!-- Img-->
-    <div class="col-lg-4 col-md-12 mb-4">
-      <div class="profile-card d-flex justify-content-center align-items-center" style="background:#cccc; border: solid 1px black;">
-        <div class="profile-box p-5">
-        <div class="img-container ">
-  
-          <img  id ="profileImage" src="" alt="" style="width: 100%; height: 100%; object-fit: cover;">
-        </div> 
-        <h2 class="d-flex justify-content-center align-items-center fw-bold p-4">Foto de perfil</h2>
-        <div class="d-flex justify-content-center align-items-center">
-          <input type="file" id="imageInput" accept="image/*" style="display: none;">
-        <button id="ImageBtn" class="pencil py-5 px-5" type="button"><i class="fa-regular fas fa-pencil"></i></button>
+          <li class="nav-item">
+            <a class="nav-link" href="categories.html" style="color: white">Categorías</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="cart.html" style="color: white">Mi Carrito <span class="badge text-bg-info"
+                style="background-color:  gray;">
+                <div id="cantMyCart"></div>
+              </span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="sell.html" style="color: white">Vender</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="my-profile.html" id="verUser" style="color: white"></a>
+          </li>
+        </ul>
       </div>
     </div>
-    </div>
-  </div>
+  </nav>
+  <main>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Perfil de usuario
+        </li>
+      </ol>
+    </nav>
+    <div class="container-fluid">
+      <div class="row mx-5 my-5">
+        <!-- Img-->
+        <div class="col-lg-4 col-md-12 mb-4">
+          <div class="profile-card d-flex justify-content-center align-items-center"
+            style="background:#cccc; border: solid 1px black;">
+            <div class="profile-box p-5">
+              <div class="img-container ">
 
-  <!--Formulario-->
-    <div class="col-lg-8 col-md-12">
-      <div class="data-perfil p-5" style="border: solid 1px black;">
-          <h1 class="fw-bold py-3" style="color: red;"> Mi Perfil</h1>
-          <form id="profile-form" action="#">
-          <div class="mb-4">
-            <div class="d-flex align-items-center gap-3">
-          <label for="name" class="form-label mb-0 " style="font-weight: bold;"> Nombre : </label>
-          <p id="previewName" class="mb-0" style="color: red;">nombre</p>
+                <img id="profileImage" src="" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+              <h2 class="d-flex justify-content-center align-items-center fw-bold p-4">Foto de perfil</h2>
+              <div class="d-flex justify-content-center align-items-center">
+                <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                <button id="ImageBtn" class="pencil py-5 px-5" type="button"><i
+                    class="fa-regular fas fa-pencil"></i></button>
+              </div>
+            </div>
           </div>
-          <input
-            type="text"
-            class="form-control form-control-sm"
-            style="border: solid 1px red"
-            id="name"/>
         </div>
-        <div class="mb-4">
-          <div class="d-flex align-items-center gap-3">
-          <label for="lastName" class="form-label mb-0" style="font-weight: bold;"> Apellido : </label>
-          <p id="previewLastName" class="mb-0" style="color: red;" > Apellido</p>
+
+        <!--Formulario-->
+        <div class="col-lg-8 col-md-12">
+          <div class="data-perfil p-5" style="border: solid 1px black;">
+            <h1 class="fw-bold py-3" style="color: red;"> Mi Perfil</h1>
+            <form id="profile-form" action="#">
+              <div class="mb-4">
+                <div class="d-flex align-items-center gap-3">
+                  <label for="name" class="form-label mb-0 " style="font-weight: bold;"> Nombre : </label>
+                  <p id="previewName" class="mb-0" style="color: red;">nombre</p>
+                </div>
+                <input type="text" class="form-control form-control-sm" style="border: solid 1px red" id="name" />
+              </div>
+              <div class="mb-4">
+                <div class="d-flex align-items-center gap-3">
+                  <label for="lastName" class="form-label mb-0" style="font-weight: bold;"> Apellido : </label>
+                  <p id="previewLastName" class="mb-0" style="color: red;"> Apellido</p>
+                </div>
+                <input type="text" class="form-control form-control-sm" style="border: solid 1px red" id="lastName" />
+              </div>
+              <div class="mb-4">
+                <div class="d-flex align-items-center gap-3">
+                  <label for="email" class="form-label mb-0" style="font-weight: bold;"> Email : </label>
+                  <p id="previewEmail" class="mb-0" style="color: red;"></p>
+                </div>
+                <input type="email" class="form-control form-control-sm " style="border: solid 1px red" id="email" />
+              </div>
+              <div class="mb-4">
+                <div class="d-flex align-items-center gap-3">
+                  <label for="phone" class="form-label mb-0" style="font-weight: bold;"> Telefono : </label>
+                  <p id="previewPhone" class="mb-0" style="color: red;">telefono</p>
+                </div>
+                <input type="number" class="form-control form-control-sm" style="border: solid 1px red" id="phone" />
+              </div>
+              <div class="d-grid">
+                <button type="submit" id="boton" class="btn btn-custom-gradient">GUARDAR</button>
+              </div>
           </div>
-          <input
-            type="text"
-            class="form-control form-control-sm"
-            style="border: solid 1px red"
-            id="lastName"/>
-        </div>
-        <div class="mb-4">
-          <div class="d-flex align-items-center gap-3">
-          <label for="email" class="form-label mb-0" style="font-weight: bold;" > Email : </label>
-          <p id="previewEmail" class="mb-0" style="color: red;" ></p>
-          </div>
-          <input
-            type="email"
-            class="form-control form-control-sm "
-            style="border: solid 1px red"
-            id="email"/>
-        </div>
-        <div class="mb-4">
-          <div class="d-flex align-items-center gap-3">
-          <label for="phone" class="form-label mb-0" style="font-weight: bold;"> Telefono : </label>
-          <p id="previewPhone" class="mb-0" style="color: red;" >telefono</p>
-          </div>
-          <input
-            type="number"
-            class="form-control form-control-sm"
-            style="border: solid 1px red"
-            id="phone"/>
-        </div>
-        <div class="d-grid">
-          <button type="submit" id="boton" class="btn btn-custom-gradient">GUARDAR</button>
+          </form>
         </div>
       </div>
-      </form>
     </div>
-  </div>
-</div>
-      <!-- <div class="container">
+    <!-- <div class="container">
       <div class="alert alert-danger text-center" role="alert">
         <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
       </div>
     </div>-->
-    </main>
-    <footer class="text-muted">
-      <div class="container">
-        <p class="float-end">
-          <a href="#">Volver arriba</a>
-        </p>
-        <p>
-          Este sitio forma parte de
-          <a href="https://jovenesaprogramar.edu.uy/" target="_blank"
-            >Jovenes a Programar</a
-          >
-        </p>
-      </div>
-    </footer>
-     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/init.js"></script>
-    <script src="js/my-profile.js"></script>
-  </body>
+  </main>
+  <footer class="text-muted">
+    <div class="container">
+      <p class="float-end">
+        <a href="#">Volver arriba</a>
+      </p>
+      <p>
+        Este sitio forma parte de
+        <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a>
+      </p>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/init.js"></script>
+  <script src="js/my-profile.js"></script>
+</body>
+
 </html>
