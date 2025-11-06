@@ -556,7 +556,7 @@ button.pencil:hover{
   color: white;
 }
  .section {
-    border: 1px solid #ccc;
+    border: 1px solid #c00;
     border-radius: 8px;
     padding: 10px;
     margin-bottom: 15px;
@@ -567,11 +567,13 @@ button.pencil:hover{
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
+    color: #E21C34;
+    font-weight: bold;
   }
 
   .section-content {
     margin-top: 10px;
-    display: none; /* Oculto por defecto */
+    display: none;
     flex-direction: column;
   }
 
@@ -586,3 +588,45 @@ button.pencil:hover{
   .arrow.rotate {
     transform: rotate(90deg);
   }
+   .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 10px 0;
+  }
+
+  .radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+  }
+  .box {
+    border: 1px solid #c00;
+    padding: 10px;
+    border-radius: 4px;
+  }
+
+  .box h3 {
+    color: #c00;
+    margin-top: 0;
+  }
+  .botonespago {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .botonespago button {
+    flex: 1;
+    border: 1px solid #c00;
+    border-radius: 4px;
+    padding: 10px;
+    background: white;
+    cursor: pointer;
+  }
+.col-form-label {
+    font-weight: bold;
+    font-size: larger;
+  }
+  
