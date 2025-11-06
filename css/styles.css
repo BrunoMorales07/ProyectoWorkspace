@@ -551,3 +551,38 @@ button.pencil:hover{
         font-size: 1.2rem;
     }
 }
+.modal-header{
+  background: var(--red-gradient);
+  color: white;
+}
+ .section {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .section-content {
+    margin-top: 10px;
+    display: none; /* Oculto por defecto */
+    flex-direction: column;
+  }
+
+  .section-content input {
+    margin-bottom: 8px;
+  }
+
+  .arrow {
+    transition: transform 0.3s;
+  }
+
+  .arrow.rotate {
+    transform: rotate(90deg);
+  }

@@ -51,8 +51,55 @@
       <div class=" col-3 p-3 total" style="border: 1px solid black;">
         <h5 class="fw-bold">Total</h5>
         <p id="precioTotal"></p>
-        <button class="cart-btn">Pagar</button>
+        <button class="cart-btn" data-bs-toggle="modal" data-bs-target="#modalCart">Pagar</button>
       </div>
+      <div class="modal fade" id="modalCart" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="ModalLabel">Datos de envío</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Tipo de envío</label>
+            <select class="form-select">
+              <option selected>Selecciona un tipo de envío</option>
+              <option value="standard">Standard 12 a 15 días (5%)</option>
+              <option value="express">Express 5 a 8 días (7%)</option>
+              <option value="premium">Premium 2 a 5 días (15%)</option>
+            </select>
+          </div>
+          <div class="section">
+            <div class="section-header" onclick="toggleSection()">
+             Dirección de envío <span id="arrow" class="arrow">▶</span>
+           </div>
+            <div id="section-content" class="section-content">
+             <input type="text" id="dpt" placeholder="Departamento">
+             <input type="text" id= "localidad" placeholder="Localidad">
+             <input type="text" id= "calle" placeholder="Calle">
+             <input type="text" id= "numero" placeholder="Numero">
+             <input type="text" id= "esq" placeholder="Esquina">
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="payment-method" class="col-form-label">Método de pago:</label>
+            <select class="form-select" id="payment-method">
+              <option selected>Selecciona un método de pago</option>
+              <option value="tarj-credito">Tarjeta de crédito</option>
+              <option value="transferencia">Transferencia Bancaria</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Finalizar compra</button>
+      </div>
+    </div>
+  </div>
+</div>
 
     </div>
     <!-- <div class="container">

@@ -114,4 +114,20 @@ document.addEventListener('DOMContentLoaded', function () {
             restar(productId);
         }
     });
+function toggleSection() {
+const content = document.getElementById("section-content");
+const arrow = document.getElementById("arrow");
+const isOpen = content.style.display === "flex";
+    
+content.style.display = isOpen ? "none" : "flex";
+arrow.classList.toggle("rotate", !isOpen);
+}
+window.toggleSection = toggleSection;
+let myModal = document.getElementById('myModal')
+let myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.bs.modal', () => {
+  myInput.focus()
+});
+
 });
