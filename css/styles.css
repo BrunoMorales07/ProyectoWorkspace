@@ -629,4 +629,18 @@ button.pencil:hover{
     font-weight: bold;
     font-size: larger;
   }
+  .form-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.col-left {
+  flex: 1;
+}
+
+.col-right {
+  width: 200px;
+}
   
