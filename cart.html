@@ -1,142 +1,235 @@
 <!DOCTYPE html>
 <html lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>eMercado - Todo lo que busques está aquí</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i"
+      rel="stylesheet"
+    />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+  </head>
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>eMercado - Todo lo que busques está aquí</title>
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/font-awesome.min.css" rel="stylesheet">
-  <link href="css/styles.css" rel="stylesheet">
-</head>
-
-<body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1" style="background: var(--red-gradient); color: white">
-    <div class="container">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav w-100 justify-content-between">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html" style="color: white">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="categories.html" style="color: white">Categorías</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="cart.html" style="color: white">Mi Carrito <span class="badge text-bg-info"
-                style="background-color:  gray;">
-                <div id="cantMyCart"></div>
-              </span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="sell.html" style="color: white">Vender</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="my-profile.html" id="verUser" style="color: white"></a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <main>
-    <div class="container my-4">
-      <H1 class="fw-bold fs-1 mb-3" style="color:#E21C34 ;">Carrito</H1>
-      <!--PRODUCTOS DEL CARRITO-->
-      <div id="product-cart"></div>
-      <!--Total del carrito-->
-      <div class=" col-3 p-3 total" style="border: 1px solid black;">
-        <h5 class="fw-bold">Total</h5>
-        <p id="precioTotal"></p>
-        <button class="cart-btn" data-bs-toggle="modal" data-bs-target="#modalCart">Pagar</button>
-      </div>
-      <div class="modal fade" id="modalCart" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="ModalLabel">Datos de envío</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="form-wrapper">
-        <form class="col-left">
-          <div class="box">
-            <label for="recipient-name" class="col-form-label" style="color: #E21C34;">Tipo de envío</label>
-            <div class="radio-group">
-              <label><input type="radio" name="entrega" value="standard"> Standard 12 a 15 días (5%)</label>
-              <label><input type="radio" name="entrega" value="express"> Express 5 a 8 días (7%)</label>
-              <label><input type="radio" name="entrega" value="premium"> Premium 2 a 5 días (15%)</label>
-            </div>
-          </div>
-          <br>
-          <div class="section">
-            <div class="section-header" onclick="toggleSection()">
-             Dirección de envío <span id="arrow" class="arrow">▶</span>
-           </div>
-            <div id="section-content" class="section-content">
-             <input type="text" id="dpt" placeholder="Departamento">
-             <input type="text" id= "localidad" placeholder="Localidad">
-             <input type="text" id= "calle" placeholder="Calle">
-             <input type="text" id= "numero" placeholder="Numero">
-             <input type="text" id= "esq" placeholder="Esquina">
-            </div>
-          </div>
-          <div class="box">
-            <label for="payment-method" class="col-form-label" style="color:#E21C34;">Forma de pago</label>
-            <div class="botonespago">
-            <button>💳 Tarjeta de crédito</button>
-            <button>💰 Transferencia</button>
-          </div>
-          </div>
-        </form>
-        <div class="col-right">
-          <div class="box">
-            <label for="recipient-name" class="col-form-label" style="color:#E21C34;">Costos</label>
-            <p>Subtotal:</p>
-            <p>Costo de envío:</p>
-            <p style="font-weight: bold;">Total:</p>
-          </div>
-        </div>
+  <body>
+    <nav
+      class="navbar navbar-expand-lg navbar-dark bg-dark p-1"
+      style="background: var(--red-gradient); color: white"
+    >
+      <div class="container">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav w-100 justify-content-between">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html" style="color: white"
+                >Inicio</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="categories.html" style="color: white"
+                >Categorías</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="cart.html" style="color: white"
+                >Mi Carrito
+                <span class="badge text-bg-info" style="background-color: gray">
+                  <div id="cantMyCart"></div> </span
+              ></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="sell.html" style="color: white"
+                >Vender</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="my-profile.html"
+                id="verUser"
+                style="color: white"
+              ></a>
+            </li>
+          </ul>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Finalizar compra</button>
+    </nav>
+    <main>
+      <div class="container my-4">
+        <h1 class="fw-bold fs-1 mb-3" style="color: #e21c34">Carrito</h1>
+        <!--PRODUCTOS DEL CARRITO-->
+        <div id="product-cart"></div>
+        <!--Total del carrito-->
+        <div class="col-3 p-3 total" style="border: 1px solid black">
+          <h5 class="fw-bold">Total</h5>
+          <p id="precioTotal"></p>
+          <button
+            class="cart-btn"
+            data-bs-toggle="modal"
+            data-bs-target="#modalCart"
+          >
+            Pagar
+          </button>
+        </div>
+        <div
+          class="modal fade"
+          id="modalCart"
+          tabindex="-1"
+          aria-labelledby="ModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ModalLabel">Datos de envío</h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="form-wrapper">
+                  <form class="col-left">
+                    <div class="box">
+                      <label
+                        for="recipient-name"
+                        class="col-form-label"
+                        style="color: #e21c34"
+                        >Tipo de envío</label
+                      >
+                      <div class="radio-group">
+                        <label
+                          ><input
+                            type="radio"
+                            name="entrega"
+                            value="standard"
+                          />
+                          Standard 12 a 15 días (5%)</label
+                        >
+                        <label
+                          ><input type="radio" name="entrega" value="express" />
+                          Express 5 a 8 días (7%)</label
+                        >
+                        <label
+                          ><input type="radio" name="entrega" value="premium" />
+                          Premium 2 a 5 días (15%)</label
+                        >
+                      </div>
+                    </div>
+                    <br />
+                    <div class="section">
+                      <div class="section-header" onclick="toggleSection()">
+                        Dirección de envío
+                        <span id="arrow" class="arrow">▶</span>
+                      </div>
+                      <div id="section-content" class="section-content">
+                        <input
+                          type="text"
+                          id="dpt"
+                          placeholder="Departamento"
+                        />
+                        <input
+                          type="text"
+                          id="localidad"
+                          placeholder="Localidad"
+                        />
+                        <input type="text" id="calle" placeholder="Calle" />
+                        <input type="text" id="numero" placeholder="Numero" />
+                        <input type="text" id="esq" placeholder="Esquina" />
+                      </div>
+                    </div>
+                    <div class="box">
+                      <label
+                        for="payment-method"
+                        class="col-form-label"
+                        style="color: #e21c34"
+                        >Forma de pago</label
+                      >
+                      <div class="botonespago">
+                        <button>💳 Tarjeta de crédito</button>
+                        <button>💰 Transferencia</button>
+                      </div>
+                    </div>
+                  </form>
+                  <div class="col-right">
+                    <div class="box">
+                      <label
+                        for="recipient-name"
+                        class="col-form-label"
+                        style="color: #e21c34"
+                        >Costos</label
+                      >
+                      <p>Subtotal: <span id="subtotal"></span></p>
+                      <p>Costo de envío: <span id="envio"></span></p>
+                      <p style="font-weight: bold">
+                        Total: <span id="total"></span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Cerrar
+                </button>
+                <button type="button" class="btn btn-primary">
+                  Finalizar compra
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
-
-    </div>
-    <!-- <div class="container">
+      <!-- <div class="container">
     <div class="alert alert-danger text-center" role="alert">
         <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
       </div>
     </div>-->
-  </main>
-  <footer class="text-muted">
-    <div class="container">
-      <p class="float-end">
-        <a href="#">Volver arriba</a>
-      </p>
-      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a>
-      </p>
+    </main>
+    <footer class="text-muted">
+      <div class="container">
+        <p class="float-end">
+          <a href="#">Volver arriba</a>
+        </p>
+        <p>
+          Este sitio forma parte de
+          <a href="https://jovenesaprogramar.edu.uy/" target="_blank"
+            >Jovenes a Programar</a
+          >
+        </p>
+      </div>
+    </footer>
+    <div id="spinner-wrapper">
+      <div class="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
-  </footer>
-  <div id="spinner-wrapper">
-    <div class="lds-ring">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  </div>
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/init.js"></script>
-  <script src="js/cart.js"></script>
-</body>
-
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/init.js"></script>
+    <script src="js/cart.js"></script>
+  </body>
 </html>
