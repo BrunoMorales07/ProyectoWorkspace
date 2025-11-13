@@ -643,4 +643,25 @@ button.pencil:hover{
 .col-right {
   width: 200px;
 }
-  
+
+/*métodos de pago*/ 
+.opcion {
+  padding: 10px 20px;
+  margin: 5px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  }
+
+.opcion:hover {
+  background-color: #f0f0f0;
+  }
+/* Estilo cuando está seleccionada */
+.opcion.seleccionado {
+   border-color: #dc3545;    
+    background-color: #dc3545;  
+    color: white;
+    box-shadow: 0 0 8px rgba(220, 53, 69, 0.6);
+}

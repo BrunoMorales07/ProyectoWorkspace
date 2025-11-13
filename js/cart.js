@@ -131,6 +131,52 @@ document.addEventListener("DOMContentLoaded", function () {
     cantMyCart.innerHTML = cant;
   }
 
+  //funcionalidad "Finalizar compra"
+  let purchase = document.getElementById('purchase');
+  
+  //métodos de pago
+    const botones = document.querySelectorAll('.opcion');
+    const respuesta = document.getElementById('respuesta');
+    const metodoDePago = document.getElementsByClassName('botonespago');
+
+    botones.forEach(boton => {
+      boton.addEventListener('click', () => {
+        botones.forEach(b => b.classList.remove('seleccionado'));
+        boton.classList.add('seleccionado');
+        respuesta.value = boton.dataset.opcion;
+      });
+    });
+
+  purchase.addEventListener('click', function () {
+    //dirección
+    let departamento = document.getElementById('dpt').value;
+    let localidad = document.getElementById('localidad').value;
+    let calle = document.getElementById('calle').value;
+    let numero = document.getElementById('numero').value;
+    let esquina = document.getElementById('esq').value;
+    let verdadero = (departamento != "" && localidad != "" && calle != "" &&
+                    numero != "" && esquina != "");
+
+    //tipo de envío
+    const seleccionado = document.querySelector('input[name="entrega"]:checked');
+
+    //validaciones
+    if (verdadero && seleccionado && respuesta.value && localStorage.getItem('cantMyCart') > 0){
+      return Swal.fire({
+        icon: "success",
+        title: "¡Compra Finalizada!",
+        text: "¡Muchas gracias por confiar en nuestra página!"
+      })
+    }
+    else {
+      return Swal.fire({
+        icon: "error",
+        title: "Error al finalizar compra",
+        text: "Debe rellenar y seleccionar todos los campos solicitados"
+      })
+    }
+  });
+
   // Event Delegation - escucha clicks en todos los botones del carrito
   cards.addEventListener("click", (e) => {
     if (e.target.classList.contains("btn-sumar")) {
