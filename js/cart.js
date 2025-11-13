@@ -93,6 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     mostrarCantidad();
+    actualizarBotonModal();
   }
   displayProducts();
 
@@ -132,48 +133,58 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   //funcionalidad "Finalizar compra"
-  let purchase = document.getElementById('purchase');
-  
+  let purchase = document.getElementById("purchase");
+
   //métodos de pago
-    const botones = document.querySelectorAll('.opcion');
-    const respuesta = document.getElementById('respuesta');
-    const metodoDePago = document.getElementsByClassName('botonespago');
+  const botones = document.querySelectorAll(".opcion");
+  const respuesta = document.getElementById("respuesta");
+  const metodoDePago = document.getElementsByClassName("botonespago");
 
-    botones.forEach(boton => {
-      boton.addEventListener('click', () => {
-        botones.forEach(b => b.classList.remove('seleccionado'));
-        boton.classList.add('seleccionado');
-        respuesta.value = boton.dataset.opcion;
-      });
+  botones.forEach((boton) => {
+    boton.addEventListener("click", () => {
+      botones.forEach((b) => b.classList.remove("seleccionado"));
+      boton.classList.add("seleccionado");
+      respuesta.value = boton.dataset.opcion;
     });
+  });
 
-  purchase.addEventListener('click', function () {
+  purchase.addEventListener("click", function () {
     //dirección
-    let departamento = document.getElementById('dpt').value;
-    let localidad = document.getElementById('localidad').value;
-    let calle = document.getElementById('calle').value;
-    let numero = document.getElementById('numero').value;
-    let esquina = document.getElementById('esq').value;
-    let verdadero = (departamento != "" && localidad != "" && calle != "" &&
-                    numero != "" && esquina != "");
+    let departamento = document.getElementById("dpt").value;
+    let localidad = document.getElementById("localidad").value;
+    let calle = document.getElementById("calle").value;
+    let numero = document.getElementById("numero").value;
+    let esquina = document.getElementById("esq").value;
+    let verdadero =
+      departamento != "" &&
+      localidad != "" &&
+      calle != "" &&
+      numero != "" &&
+      esquina != "";
 
     //tipo de envío
-    const seleccionado = document.querySelector('input[name="entrega"]:checked');
+    const seleccionado = document.querySelector(
+      'input[name="entrega"]:checked'
+    );
 
     //validaciones
-    if (verdadero && seleccionado && respuesta.value && localStorage.getItem('cantMyCart') > 0){
+    if (
+      verdadero &&
+      seleccionado &&
+      respuesta.value &&
+      localStorage.getItem("cantMyCart") > 0
+    ) {
       return Swal.fire({
         icon: "success",
         title: "¡Compra Finalizada!",
-        text: "¡Muchas gracias por confiar en nuestra página!"
-      })
-    }
-    else {
+        text: "¡Muchas gracias por confiar en nuestra página!",
+      });
+    } else {
       return Swal.fire({
         icon: "error",
         title: "Error al finalizar compra",
-        text: "Debe rellenar y seleccionar todos los campos solicitados"
-      })
+        text: "Debe rellenar y seleccionar todos los campos solicitados",
+      });
     }
   });
 
@@ -204,4 +215,17 @@ document.addEventListener("DOMContentLoaded", function () {
   myModal.addEventListener("shown.bs.modal", () => {
     myInput.focus();
   });
+  //Deshabilitar botón de comprar si el carrito está vacío
+  function actualizarBotonModal() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cantProductos = cart.reduce(
+      (acc, item) => acc + (item.count || 0),
+      0
+    );
+    const botonModal = document.getElementById("botonModal");
+
+    if (botonModal) {
+      botonModal.disabled = cantProductos <= 0;
+    }
+  }
 });
