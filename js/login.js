@@ -1,24 +1,45 @@
 function showAlertError() {
-    document.getElementById("alert-danger").classList.add("show");
+  document.getElementById("alert-danger").classList.add("show");
 }
 
-
-let boton = document.getElementById('boton');
+let boton = document.getElementById("boton");
 
 boton.addEventListener("click", function () {
-    
-    let usuario = document.getElementById('user').value.trim();
-    let password = document.getElementById('password').value.trim();
+  let usuario = document.getElementById("user").value.trim();
+  let password = document.getElementById("password").value.trim();
 
-    localStorage.setItem("sesionIniciada", "true");
-    localStorage.setItem("usuario",usuario);
-    localStorage.setItem("password",password);
-    
-    
-    if (usuario === "" || password === ""){ 
-        showAlertError();
-        return;
-    }
-   
-    location.href = "index.html";  
-})
+  if (usuario === "" || password === "") {
+    showAlertError();
+    return;
+  }
+  localStorage.setItem("sesionIniciada", "true");
+  localStorage.setItem("usuario", usuario);
+  localStorage.setItem("password", password);
+
+  location.href = "index.html";
+});
+//cambio de tema
+function toggleTheme() {
+  let html = document.documentElement;
+  let currentTheme = html.getAttribute("data-theme");
+  let newTheme = currentTheme === "dark" ? "light" : "dark";
+
+  html.setAttribute("data-theme", newTheme);
+
+  let icon = document.getElementById("theme-icon");
+  if (newTheme === "dark") {
+    icon.className = "fas fa-sun";
+  } else {
+    icon.className = "fas fa-moon";
+  }
+
+  localStorage.setItem("theme", newTheme);
+
+  document.querySelectorAll(".card").forEach((card) => {
+    card - body.toggle("dark-card");
+    card - text.toggle("text-white");
+  });
+
+  let savedTheme = localStorage.getItem("theme") || "light";
+  document.documentElement.setAttribute("data-theme", savedTheme);
+}

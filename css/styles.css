@@ -23,7 +23,80 @@
 
 .jumbotron .display-4 {
   font-weight: bold;
+  font-size: 3.5rem;
 }
+/* Hacer responsive el jumbotron */
+.jumbotron {
+  height: auto !important;
+  min-height: 50vh;
+  padding: 3rem 1rem;
+  background-size: contain !important;
+  background-position: center !important;
+}
+
+@media (max-width: 768px) {
+  .jumbotron {
+    height: auto;
+    min-height: 40vh;
+    padding: 2rem 1rem;
+  }
+
+  .jumbotron .container {
+    max-width: 90%;
+    padding: 1rem;
+  }
+}
+@media (max-width: 576px) {
+  .jumbotron {
+    min-height: 30vh;
+    padding: 1.5rem 0.5rem;
+  }
+
+  .jumbotron .lead {
+    font-size: 24px !important;
+  }
+}
+/*con menu hamb. */
+.navbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.navbar-toggler {
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+}
+
+.navbar-toggler:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+  outline: none;
+}
+
+.navbar-toggler-icon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
+
+.navbar-collapse {
+  transition: all 0.3s ease-in-out;
+}
+
 /*Modificaciones al navbar*/
 nav {
   background-color: var(--red-gradient);
@@ -476,24 +549,223 @@ button.pencil:hover {
   transform: scale(1.2);
   filter: drop-shadow(0 0 8px #e21c43);
 }
-.img-container {
+/* Contenedor de la foto */
+.foto-perfil-container {
+  position: relative;
   width: 200px;
   height: 200px;
-  padding: 0;
+  margin: 0 auto;
+}
+
+/* Círculo de la foto */
+.foto-perfil {
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
-  border: solid 1px red;
-  overflow: hidden;
+  border: 2px solid red;
+  object-fit: cover;
+  background: white;
+  display: block;
+}
+
+/* Botón de editar */
+.btn-editar-foto {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #ff6b6b;
+  border: 3px solid #cccc;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f0f0f0;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.img-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.btn-editar-foto:hover {
+  transform: scale(1.1);
+  background: #ff5252;
+}
+
+.btn-editar-foto i {
+  color: white;
+  font-size: 20px;
+}
+
+/* Botón de eliminar */
+.btn-eliminar-foto {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
+  background: #dc3545;
+  border: 3px solid #cccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-eliminar-foto:hover {
+  transform: scale(1.1);
+  background: #c82333;
+}
+
+.btn-eliminar-foto i {
+  color: white;
+  font-size: 20px;
+}
+
+/* Ocultar botón eliminar */
+.oculto {
+  display: none !important;
+}
+/* Estilos para modo oscuro*/
+[data-theme="dark"] {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --bg-tertiary: #3a3a3a;
+  --text-primary: #e9ecef;
+  --text-secondary: #adb5bd;
+  --border-color: #495057;
+  --accent: #0d6efd;
+  --card-bg: #2d2d2d;
+  --shadow-dark: 0 5px 15px rgba(0, 0, 0, 0.6);
+}
+
+/* Aplicar estilos oscuros */
+[data-theme="dark"] body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .card {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .jumbotron .container {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] nav {
+  background: linear-gradient(#8b0000, #2d0a1a);
+}
+
+[data-theme="dark"] .cart-box {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .comentario-box {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .modal-content {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .section {
+  border-color: #8b0000;
+  background-color: var(--bg-tertiary);
+}
+
+[data-theme="dark"] input,
+[data-theme="dark"] textarea {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .opcion {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+[data-theme="dark"] .opcion.seleccionado {
+  border-color: #ff6347;
+  background-color: #ff6347;
+  color: white;
+  box-shadow: 0 0 8px rgba(255, 99, 71, 0.6);
+}
+[data-theme="dark"] .btn-custom-gradient {
+  background: linear-gradient(90deg, #ff6347 0%, #ff7f50 50%, #ffa07a 100%);
+}
+[data-theme="dark"] .btn-custom-gradient:hover {
+  opacity: 0.9;
+}
+/* Fondo de la sección album en modo oscuro */
+[data-theme="dark"] .album {
+  background-color: var(--bg-primary) !important;
+}
+
+[data-theme="dark"] .bg-light {
+  background-color: var(--bg-primary) !important;
+}
+[data-theme="dark"] .list-group-item {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .list-group-item:hover {
+  background-color: var(--bg-tertiary) !important;
+}
+
+/* Contador de artículos */
+[data-theme="dark"] .badge {
+  background-color: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* búsqueda */
+[data-theme="dark"] input[type="text"],
+[data-theme="dark"] input[type="search"],
+[data-theme="dark"] .form-control {
+  background-color: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .form-control::placeholder {
+  color: var(--text-secondary) !important;
+}
+
+/* Botones Limpiar y Filtrar */
+[data-theme="dark"] .btn-secondary {
+  background-color: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .btn-primary {
+  background-color: var(--accent) !important;
+  border-color: var(--accent) !important;
+}
+
+/* Botones A-Z, Z-A */
+[data-theme="dark"] .btn-outline-secondary {
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .btn-outline-secondary:hover {
+  background-color: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
 }
 
 /* Responsive */
@@ -669,4 +941,14 @@ button.pencil:hover {
   cursor: not-allowed;
   pointer-events: none;
   border-color: #6c757d !important;
+}
+
+.btn-custom-gradient {
+  background: linear-gradient(90deg, #ff4500 0%, #ff8c00 50%, #ffd700 100%);
+  border: none;
+  color: white;
+}
+
+.btn-custom-gradient:hover {
+  opacity: 0.9;
 }

@@ -21,13 +21,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const cards = document.getElementById("product-cart");
   let cant;
   let porcentajeEnvio = 0.0; // Costo por defecto
-  localStorage.setItem("cantMyCart", 0);
   function displayProducts() {
     const products = JSON.parse(localStorage.getItem("cart"));
     let contenedorTotal = document.getElementById("precioTotal");
     let totalGeneral = 0;
     cant = 0;
-    localStorage.setItem("cantMyCart", cant);
     if (contenedorTotal) {
       contenedorTotal.innerHTML = ` $ ${totalGeneral}`;
     }
@@ -128,8 +126,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //cantidad de productos en el carrito
   function mostrarCantidad() {
-    let cantMyCart = document.getElementById("cantMyCart");
-    cantMyCart.innerHTML = cant;
+    let badge = document.getElementById("cantMyCart");
+
+    if (badge) {
+      const cant = localStorage.getItem("cantMyCart") || 0;
+      badge.textContent = cant;
+    }
   }
 
   //funcionalidad "Finalizar compra"

@@ -79,10 +79,8 @@ document.addEventListener("DOMContentLoaded", function () {
             `;
       contenedor.appendChild(elementoProducto);
     });
-
-
   }
-
+  actualizarContadorCarrito;
   function sortProducts(criteria, array) {
     let result = [];
     if (criteria === "AZ") {
@@ -168,7 +166,6 @@ document.addEventListener("DOMContentLoaded", function () {
     saveIdAndRedirect();
   });
 
-
   getJSONData(PRODUCTS_URL).then(function () {
     saveIdAndRedirect();
   });
@@ -190,31 +187,21 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
   }
+  function actualizarContadorCarrito() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let totalItems = cart.reduce((sum, item) => sum + (item.cantidad || 1), 0);
 
-});
-
-function toggleTheme() {
-    let html = document.documentElement;
-    let currentTheme = html.getAttribute('data-theme');
-    let newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    html.setAttribute('data-theme', newTheme);
-    
-    let icon = document.getElementById('theme-icon');
-    if (newTheme === 'dark') {
-        icon.className = 'fas fa-sun';
-    } else {
-        icon.className = 'fas fa-moon';
+    // Actualiza el elemento del contador
+    const contadorElemento = document.getElementById("cantMyCart");
+    if (contadorElemento) {
+      contadorElemento.textContent = totalItems;
     }
-    
-    localStorage.setItem('theme', newTheme);
+  }
+  actualizarContadorCarrito();
 
-     document.querySelectorAll('.card').forEach(card => {
-    card-body.toggle('dark-card');
-    card-text.toggle('text-white');
-  });
-}
+  const sesion = localStorage.getItem("sesionIniciada");
 
-let savedTheme = localStorage.getItem('theme') || 'light';
-document.documentElement.setAttribute('data-theme', savedTheme);
-
+  if (sesion !== "true") {
+    location.href = "login.html";
+  }
+});

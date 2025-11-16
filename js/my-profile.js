@@ -96,22 +96,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //Imagen del perfil
   const imageInput = document.getElementById("imageInput");
-  const profileImage = document.querySelector(".img-container img");
-  const uploadImageBtn = document.getElementById("ImageBtn");
-  const usuarioActual = localStorage.getItem("usuario");
-  const users = JSON.parse(localStorage.getItem("users")) || [];
-  const usuarioData = users.find((u) => u.user === usuarioActual);
+  const profileImage = document.getElementById("profileImage");
+  const btnEliminar = document.getElementById("btnEliminarFoto");
+  const fotoDefault = "img/default.png"; // poné la ruta que quieras
 
-  if (usuarioData && usuarioData.profileImage) {
-    profileImage.src = usuarioData.profileImage;
+  let usuarioActual = localStorage.getItem("usuario");
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+  let usuarioData = users.find((u) => u.user === usuarioActual);
+
+  // Si el usuario no existe, crearlo
+  if (!usuarioData) {
+    usuarioData = { user: usuarioActual };
+    users.push(usuarioData);
+    localStorage.setItem("users", JSON.stringify(users));
   }
-  uploadImageBtn.addEventListener("click", () => {
-    imageInput.click();
-  });
 
+  // Si ya tiene foto guardada, mostrarla
+  if (usuarioData.profileImage) {
+    profileImage.src = usuarioData.profileImage;
+    btnEliminar.classList.remove("oculto");
+  }
+
+  // Abrir el input cuando tocan el icono del lápiz (label)
   imageInput.addEventListener("change", (e) => {
     const file = e.target.files[0];
-
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
@@ -137,16 +145,50 @@ document.addEventListener("DOMContentLoaded", function () {
     reader.onload = (event) => {
       const base64 = event.target.result;
       profileImage.src = base64;
-      const usuarioActual = localStorage.getItem("usuario");
-      let users = JSON.parse(localStorage.getItem("users")) || [];
-      const usuarioIndex = users.findIndex((u) => u.user === usuarioActual);
 
-      if (usuarioIndex !== -1) {
-        users[usuarioIndex].profileImage = base64;
-        localStorage.setItem("users", JSON.stringify(users));
-      }
+      usuarioData.profileImage = base64;
+      localStorage.setItem("users", JSON.stringify(users));
+
+      btnEliminar.classList.remove("oculto");
+
+      Swal.fire({
+        icon: "success",
+        title: "¡Foto actualizada!",
+        timer: 1500,
+        showConfirmButton: false,
+      });
     };
 
     reader.readAsDataURL(file);
+  });
+
+  // Eliminar foto
+  btnEliminar.addEventListener("click", function () {
+    Swal.fire({
+      title: "¿Eliminar foto de perfil?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#dc3545",
+      cancelButtonColor: "#6c757d",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        profileImage.src = fotoDefault;
+
+        delete usuarioData.profileImage;
+        localStorage.setItem("users", JSON.stringify(users));
+
+        btnEliminar.classList.add("oculto");
+        imageInput.value = "";
+
+        Swal.fire({
+          icon: "success",
+          title: "Foto eliminada",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      }
+    });
   });
 });

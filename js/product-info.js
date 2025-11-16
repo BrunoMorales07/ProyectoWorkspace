@@ -135,6 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Guardar el carrito actualizado
       localStorage.setItem("cart", JSON.stringify(cart));
+      actualizarContadorCarrito();
 
       // Navegar a cart.html
       window.location.href = "cart.html";
@@ -342,5 +343,19 @@ document.addEventListener("DOMContentLoaded", function () {
       selectedRating = 0;
       stars.forEach((s) => (s.style.color = ""));
     });
+    if (sesion !== "true") {
+      location.href = "login.html";
+    }
   });
 });
+function actualizarContadorCarrito() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let totalItems = cart.reduce((sum, item) => sum + (item.cantidad || 1), 0);
+
+  // Actualiza contador
+  const contadorElemento = document.getElementById("cantMyCart");
+  if (contadorElemento) {
+    contadorElemento.textContent = totalItems;
+  }
+}
+actualizarContadorCarrito();

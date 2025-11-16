@@ -1,19 +1,21 @@
 const CATEGORIES_URL = "https://japceibal.github.io/emercado-api/cats/cat.json";
-const PUBLISH_PRODUCT_URL = "https://japceibal.github.io/emercado-api/sell/publish.json";
+const PUBLISH_PRODUCT_URL =
+  "https://japceibal.github.io/emercado-api/sell/publish.json";
 const PRODUCTS_URL = "https://japceibal.github.io/emercado-api/cats_products/";
 const PRODUCT_INFO_URL = "https://japceibal.github.io/emercado-api/products/";
-const PRODUCT_INFO_COMMENTS_URL = "https://japceibal.github.io/emercado-api/products_comments/";
+const PRODUCT_INFO_COMMENTS_URL =
+  "https://japceibal.github.io/emercado-api/products_comments/";
 const CART_INFO_URL = "https://japceibal.github.io/emercado-api/user_cart/";
 const CART_BUY_URL = "https://japceibal.github.io/emercado-api/cart/buy.json";
 const EXT_TYPE = ".json";
 
 let showSpinner = function () {
   document.getElementById("spinner-wrapper").style.display = "block";
-}
+};
 
 let hideSpinner = function () {
   document.getElementById("spinner-wrapper").style.display = "none";
-}
+};
 
 let usuario = localStorage.getItem("usuario");
 if (usuario) {
@@ -30,7 +32,7 @@ let getJSONData = function (url) {
   let result = {};
   showSpinner();
   return fetch(url)
-    .then(response => {
+    .then((response) => {
       if (response.ok) {
         return response.json();
       } else {
@@ -38,15 +40,40 @@ let getJSONData = function (url) {
       }
     })
     .then(function (response) {
-      result.status = 'ok';
+      result.status = "ok";
       result.data = response;
       hideSpinner();
       return result;
     })
     .catch(function (error) {
-      result.status = 'error';
+      result.status = "error";
       result.data = error;
       hideSpinner();
       return result;
     });
+};
+//Función para cambiar tema
+function toggleTheme() {
+  let html = document.documentElement;
+  let currentTheme = html.getAttribute("data-theme");
+  let newTheme = currentTheme === "dark" ? "light" : "dark";
+
+  html.setAttribute("data-theme", newTheme);
+
+  let icon = document.getElementById("theme-icon");
+  if (newTheme === "dark") {
+    icon.className = "fas fa-sun";
+  } else {
+    icon.className = "fas fa-moon";
+  }
+
+  localStorage.setItem("theme", newTheme);
+
+  document.querySelectorAll(".card").forEach((card) => {
+    card - body.toggle("dark-card");
+    card - text.toggle("text-white");
+  });
 }
+
+let savedTheme = localStorage.getItem("theme") || "light";
+document.documentElement.setAttribute("data-theme", savedTheme);

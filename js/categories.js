@@ -170,7 +170,6 @@ function showCategoriesList() {
         `;
   }
 }
-
 function sortAndShowCategories(sortCriteria, categoriesArray) {
   currentSortCriteria = sortCriteria;
 
@@ -258,5 +257,16 @@ document.addEventListener("DOMContentLoaded", function (e) {
   document.getElementById("clearSearch").addEventListener("click", function () {
     clearSearch();
   });
+
   showCategoriesList();
 });
+function actualizarContadorCarrito() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let totalItems = cart.reduce((sum, item) => sum + (item.cantidad || 1), 0);
+
+  const contadorElemento = document.getElementById("cantMyCart");
+  if (contadorElemento) {
+    contadorElemento.textContent = totalItems;
+  }
+}
+actualizarContadorCarrito();
