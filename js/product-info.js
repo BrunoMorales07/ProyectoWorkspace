@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const productID = localStorage.getItem("productID");
-  const PRODUCTS_INFO_URL = `https://japceibal.github.io/emercado-api/products/${productID}.json`;
+  const PRODUCTS_INFO_URL = `http://localhost:3000/products/${productID}.json`;
 
   const contenedor = document.getElementById("contenedor");
 
@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Funcion mostrar comentarios
-  const API_URL = `https://japceibal.github.io/emercado-api/products_comments/${productID}.json`;
+  const API_URL = `http://localhost:3000/products_comments/${productID}.json`;
 
   function mostrarEstrellas(score) {
     let estrellas = "";
@@ -244,7 +244,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function cargarComentarios() {
       fetch(
-        `https://japceibal.github.io/emercado-api/products_comments/${productId}.json`
+        `http://localhost:3000/products_comments/${productId}.json`
       )
         .then((response) => response.json())
         .then((apiComments) => {

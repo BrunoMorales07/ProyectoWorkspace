@@ -199,7 +199,8 @@ function clearSearch() {
 document.addEventListener("DOMContentLoaded", function (e) {
   getJSONData(CATEGORIES_URL).then(function (resultObj) {
     if (resultObj.status === "ok") {
-      currentCategoriesArray = resultObj.data;
+      currentCategoriesArray = resultObj.data[0];
+      console.log(currentCategoriesArray);
       showCategoriesList();
       //sortAndShowCategories(ORDER_ASC_BY_NAME, resultObj.data);
     }

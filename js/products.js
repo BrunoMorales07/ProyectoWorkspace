@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   //Agregamos el catID del localStorage
   const categoriaID = localStorage.getItem("catID");
   //Almacenamos la URL
-  const PRODUCTS_URL = `https://japceibal.github.io/emercado-api/cats_products/${categoriaID}.json`;
+  const PRODUCTS_URL = `http://localhost:3000/cats_products/${categoriaID}.json`;
 
   const contenedor = document.getElementById("contenedor");
   contenedor.className = "row";
