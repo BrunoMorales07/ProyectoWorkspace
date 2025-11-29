@@ -2,7 +2,12 @@ let express = require("express");
 let cors = require("cors");
 let fs = require("fs");
 let path = require("path");
+<<<<<<< HEAD
 let mariadb = require("mariadb");
+=======
+let jwt = require("jsonwebtoken");
+const SECRET_KEY = "grupo 6 proyecto";
+>>>>>>> 32f06bb773fdf5debd94ab2c8d4f7548c23f5fbf
 
 let app = express();
 app.use(cors());
@@ -26,16 +31,48 @@ let folders = fs
 folders.forEach((folder) => {
   let folderPath = path.join(dataPath, folder);
 
+<<<<<<< HEAD
   app.get(`/${folder}`, (req, res) => {
     let files = fs
       .readdirSync(folderPath)
       .filter((file) => file.endsWith(".json"));
     let allData = files.map((file) => {
       return require(path.join(folderPath, file));
+=======
+    //Middleware autenticación
+    app.use(`/${folder}`, (req, res, next) => {
+        try {
+            const decoded = jwt.verify(req.headers["access-token"], SECRET_KEY);
+            next();
+        }
+        catch(error) {
+            res.status(401).json({message: "Usuario no autorizado"});
+        }
+    });
+
+    app.get(`/${folder}`, (req, res) => {
+        let files = fs.readdirSync(folderPath).filter(file => file.endsWith(".json"));
+        let allData = files.map(file => {
+            return require(path.join(folderPath, file));
+        });
+
+        res.json(allData);
+>>>>>>> 32f06bb773fdf5debd94ab2c8d4f7548c23f5fbf
     });
 
     res.json(allData);
   });
+});
+
+//Middleware autenticación
+app.use("/:folder/:file", (req, res, next) => {
+    try {
+        const decoded = jwt.verify(req.headers["access-token"], SECRET_KEY);
+        next();
+    }
+    catch(error) {
+        res.status(401).json({message: "Usuario no autorizado"});
+    }
 });
 
 app.get("/:folder/:file", (req, res) => {
