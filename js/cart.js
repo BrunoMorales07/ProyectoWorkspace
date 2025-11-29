@@ -20,7 +20,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const cards = document.getElementById("product-cart");
   let cant;
-  let porcentajeEnvio = 0.0; // Costo por defecto
+  let porcentajeEnvio = 0.0;
+
   function displayProducts() {
     const products = JSON.parse(localStorage.getItem("cart"));
     let contenedorTotal = document.getElementById("precioTotal");
@@ -62,7 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
             <p class="p-5"> SubTotal $: ${producto.cost * producto.count}</p>
             </div>
-
              `;
         cards.appendChild(actualProduct);
       });
@@ -96,7 +96,6 @@ document.addEventListener("DOMContentLoaded", function () {
   displayProducts();
 
   // agregar y quitar productos
-
   function sumar(productId) {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     const product = cart.find((p) => p.id === productId);
@@ -150,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  purchase.addEventListener("click", function () {
+  purchase.addEventListener("click", async function () {
     //dirección
     let departamento = document.getElementById("dpt").value;
     let localidad = document.getElementById("localidad").value;
@@ -176,13 +175,79 @@ document.addEventListener("DOMContentLoaded", function () {
       respuesta.value &&
       localStorage.getItem("cantMyCart") > 0
     ) {
-      return Swal.fire({
-        icon: "success",
-        title: "¡Compra Finalizada!",
-        text: "¡Muchas gracias por confiar en nuestra página!",
-      });
+      // Obtener datos del carrito
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      // Calcular totales
+      let subtotalCalc = cart.reduce(
+        (acc, item) => acc + item.cost * item.count,
+        0
+      );
+      let shippingCost = Math.round(subtotalCalc * porcentajeEnvio);
+      let totalWithShipping = subtotalCalc + shippingCost;
+
+      // tipo de envio
+      let shippingType = 1;
+      if (seleccionado.value === "express") shippingType = 2;
+      if (seleccionado.value === "premium") shippingType = 3;
+
+      // Preparar datos para enviar al backend
+      const orderData = {
+        user_id: 1,
+        items: cart,
+        subtotal: subtotalCalc,
+        shippingCost: shippingCost,
+        totalWithShipping: totalWithShipping,
+        shippingType: shippingType,
+        paymentMethod: respuesta.value,
+        address: {
+          street: `${calle} ${numero}`,
+          city: localidad,
+          state: departamento,
+          zipCode: esquina,
+          country: "Uruguay",
+        },
+      };
+
+      try {
+        // Enviar datos al backend
+        const response = await fetch("http://localhost:3000/cart", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(orderData),
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          // Limpiar carrito
+          localStorage.removeItem("cart");
+          localStorage.setItem("cantMyCart", 0);
+
+          // Mostrar mensaje de éxito
+          Swal.fire({
+            icon: "success",
+            title: "¡Compra Finalizada!",
+            html: `¡Muchas gracias por confiar en nuestra página!<br><strong>Orden #${result.order_id}</strong>`,
+          }).then(() => {
+            // Recargar página para mostrar carrito vacío
+            window.location.reload();
+          });
+        } else {
+          throw new Error(result.error);
+        }
+      } catch (error) {
+        console.error("Error al procesar la compra:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error al procesar la compra",
+          text: "Hubo un problema al guardar tu orden. Por favor, intenta nuevamente.",
+        });
+      }
     } else {
-      return Swal.fire({
+      Swal.fire({
         icon: "error",
         title: "Error al finalizar compra",
         text: "Debe rellenar y seleccionar todos los campos solicitados",
@@ -202,6 +267,7 @@ document.addEventListener("DOMContentLoaded", function () {
       restar(productId);
     }
   });
+
   function toggleSection() {
     const content = document.getElementById("section-content");
     const arrow = document.getElementById("arrow");
@@ -211,12 +277,14 @@ document.addEventListener("DOMContentLoaded", function () {
     arrow.classList.toggle("rotate", !isOpen);
   }
   window.toggleSection = toggleSection;
+
   let myModal = document.getElementById("myModal");
   let myInput = document.getElementById("myInput");
 
   myModal.addEventListener("shown.bs.modal", () => {
     myInput.focus();
   });
+
   //Deshabilitar botón de comprar si el carrito está vacío
   function actualizarBotonModal() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];

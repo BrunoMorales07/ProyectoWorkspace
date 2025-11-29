@@ -15,6 +15,7 @@ boton.addEventListener("click", function () {
   localStorage.setItem("sesionIniciada", "true");
   localStorage.setItem("usuario", usuario);
   localStorage.setItem("password", password);
+  localStorage.setItem("usuario_id", usuario.id);
 
   location.href = "index.html";
 });
