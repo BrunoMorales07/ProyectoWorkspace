@@ -2,6 +2,8 @@ let express = require("express");
 let cors = require("cors");
 let fs = require("fs");
 let path = require("path");
+let jwt = require("jsonwebtoken");
+const SECRET_KEY = "grupo 6 proyecto";
 
 let app = express();
 app.use(cors());
@@ -16,6 +18,17 @@ let folders = fs.readdirSync(dataPath).filter(folder =>
 folders.forEach(folder => {
     let folderPath = path.join(dataPath, folder);
 
+    //Middleware autenticación
+    app.use(`/${folder}`, (req, res, next) => {
+        try {
+            const decoded = jwt.verify(req.headers["access-token"], SECRET_KEY);
+            next();
+        }
+        catch(error) {
+            res.status(401).json({message: "Usuario no autorizado"});
+        }
+    });
+
     app.get(`/${folder}`, (req, res) => {
         let files = fs.readdirSync(folderPath).filter(file => file.endsWith(".json"));
         let allData = files.map(file => {
@@ -24,6 +37,17 @@ folders.forEach(folder => {
 
         res.json(allData);
     });
+});
+
+//Middleware autenticación
+app.use("/:folder/:file", (req, res, next) => {
+    try {
+        const decoded = jwt.verify(req.headers["access-token"], SECRET_KEY);
+        next();
+    }
+    catch(error) {
+        res.status(401).json({message: "Usuario no autorizado"});
+    }
 });
 
 app.get("/:folder/:file", (req, res) => {
