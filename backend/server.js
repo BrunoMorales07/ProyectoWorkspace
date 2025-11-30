@@ -40,6 +40,17 @@ folders.forEach((folder) => {
   });
 });
 
+//firma con jwt
+app.post("/login", (req, res) => {
+  const { user, password } = req.body;
+  if (user === "admin" && password === "admin") {
+    const token = jwt.sign({ user }, SECRET_KEY);
+    res.status(200).json({ token });
+  } else {
+    res.status(401).json({ message: "Usuario y/o contraseña incorrecto" });
+  }
+});
+
 //Middleware autenticación
 app.use("/:folder/:file", (req, res, next) => {
     try {
