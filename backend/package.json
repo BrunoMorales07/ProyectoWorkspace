@@ -14,11 +14,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^5.1.0",
-<<<<<<< HEAD
     "mariadb": "^3.4.5",
     "mysql2": "^3.15.3"
-=======
     "jsonwebtoken": "^9.0.2"
->>>>>>> 32f06bb773fdf5debd94ab2c8d4f7548c23f5fbf
   }
 }
